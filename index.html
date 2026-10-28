@@ -1,1448 +1,1021 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mardoche Cakpo — Développeur Full Stack</title>
-
-<!-- FAVICON SVG -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%230a0a0a'/%3E%3Cpath d='M11 28V13l9 8 9-8v15' stroke='%23ffffff' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-
-<!-- BOOTSTRAP ICONS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
+<title>Mardoche Cakpo — Développeur Web & Mobile</title>
+<meta name="description" content="Portfolio de Mardoche Cakpo, développeur web et mobile. Applications modernes, performantes et élégantes.">
+<meta name="theme-color" content="#4f46e5">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%234f46e5'/%3E%3Cpath d='M11 28V13l9 8 9-8v15' stroke='%23ffffff' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<script>
+  (function(){
+    var t = null;
+    try { t = localStorage.getItem('theme'); } catch(e) {}
+    if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+  })();
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['"Space Grotesk"', 'Inter', 'sans-serif']
+      }
+    }
+  }
+};
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+<style type="text/tailwindcss">
+  .nav-link { @apply px-3 py-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-900 transition; }
+  .mobile-link { @apply block py-3 border-b border-zinc-100 dark:border-zinc-900 text-zinc-700 dark:text-zinc-300; }
+  .icon-btn { @apply w-10 h-10 inline-flex items-center justify-center rounded-lg border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition; }
+  .btn-primary { @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium transition disabled:opacity-60 disabled:cursor-not-allowed; }
+  .btn-secondary { @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 font-medium hover:bg-zinc-100 dark:hover:bg-zinc-900 transition; }
+  .card { @apply bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl; }
+  .eyebrow { @apply text-sm font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-3; }
+  .section-title { @apply font-display text-3xl md:text-4xl font-bold tracking-tight; }
+  .stat { @apply border-l-2 border-indigo-600 dark:border-indigo-400 pl-4; }
+  .stat-num { @apply font-display text-3xl font-bold text-zinc-900 dark:text-white; }
+  .stat-label { @apply text-xs text-zinc-500 mt-1; }
+  .filter-btn { @apply px-4 py-2 rounded-lg text-sm font-medium border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition; }
+  .filter-btn.active { @apply bg-zinc-900 text-white border-zinc-900 dark:bg-white dark:text-zinc-900 dark:border-white; }
+  .label { @apply block text-sm font-medium mb-2 text-zinc-700 dark:text-zinc-300; }
+  .input { @apply w-full px-4 py-3 rounded-lg bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition placeholder:text-zinc-400; }
+  .contact-icon { @apply w-11 h-11 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0; }
+  .tag { @apply text-xs px-2.5 py-1 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300; }
+  .social-btn { @apply w-11 h-11 rounded-xl border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-600 dark:text-zinc-400 hover:text-white hover:bg-indigo-600 hover:border-indigo-600 transition-all duration-200; }
+  .badge { @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border; }
+</style>
+
 <style>
-/* ===== RESET & BASE ===== */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-    --bg: #ffffff;
-    --bg-alt: #f7f7f8;
-    --text: #0a0a0a;
-    --text-muted: #6b7280;
-    --border: #e5e7eb;
-    --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    --whatsapp: #25D366;
-    --linkedin: #0A66C2;
-    --malt: #FC5757;
-    --success: #22c55e;
-}
-
-html { scroll-behavior: smooth; }
-
-body {
-    font-family: var(--font);
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-}
-
-h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
-
-/* ===== LOADER ===== */
-#loader {
-    position: fixed;
+  .grid-bg {
+    background-image: linear-gradient(to right, rgba(113,113,122,.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(113,113,122,.08) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse at 50% 0%, #000 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 30%, transparent 75%);
+  }
+  .dots-bg { background-image: radial-gradient(rgba(255,255,255,.5) 1px, transparent 1px); background-size: 16px 16px; }
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+  .nav-scrolled { background: rgba(255,255,255,.85); backdrop-filter: blur(12px); border-color: #f4f4f5 !important; }
+  .dark .nav-scrolled { background: rgba(9,9,11,.85); border-color: #18181b !important; }
+  .bar-fill { width: 0; transition: width 1.2s cubic-bezier(.2,.8,.2,1); }
+  
+  /* Project card images */
+  .project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .6s cubic-bezier(.2,.8,.2,1);
+    display: block;
+  }
+  .project-card:hover .project-image { transform: scale(1.08); }
+  .project-visual { position: relative; overflow: hidden; background: #e5e7eb; }
+  .project-overlay {
+    position: absolute;
     inset: 0;
-    z-index: 9999;
-    background: var(--bg);
+    background: linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,.15) 50%, transparent 100%);
+    opacity: 0;
+    transition: opacity .3s ease;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
-    gap: 1.5rem;
-    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
-}
-#loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    padding: 1.5rem;
+  }
+  .project-card:hover .project-overlay { opacity: 1; }
+  .project-overlay-btn {
+    background: rgba(255,255,255,.95);
+    color: #18181b;
+    padding: .65rem 1.25rem;
+    border-radius: 9999px;
+    font-size: .85rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    transform: translateY(10px);
+    transition: transform .3s ease, background .2s;
+  }
+  .project-card:hover .project-overlay-btn { transform: translateY(0); }
+  .project-overlay-btn:hover { background: #fff; }
 
-.loader-icon {
+  /* Loader */
+  #loader {
+    position: fixed; inset: 0; z-index: 9999;
+    background: #ffffff;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 1.5rem;
+    transition: opacity .7s ease, visibility .7s ease;
+  }
+  .dark #loader { background: #09090b; }
+  #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  .loader-monogram {
     position: relative;
     width: 72px; height: 72px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.loader-icon svg { width: 56px; height: 56px; position: relative; z-index: 2; }
-.loader-icon::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    border: 2px solid var(--border);
-    border-top-color: var(--text);
-    animation: spin 0.9s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.loader-text {
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--text-muted);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    animation: pulse 1.6s ease-in-out infinite;
-}
-@keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
-
-/* ===== NAVIGATION ===== */
-.navbar {
-    position: fixed;
-    top: 0; width: 100%;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--border);
-    z-index: 1000;
-}
-.nav-container {
-    max-width: 1140px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    height: 68px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-/* LOGO */
-.logo {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    text-decoration: none;
-    color: var(--text);
-    transition: opacity 0.2s;
-}
-.logo:hover { opacity: 0.75; }
-
-.logo-icon {
-    width: 34px; height: 34px;
-    border-radius: 9px;
-    overflow: hidden;
-    flex-shrink: 0;
-    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.logo:hover .logo-icon { transform: rotate(-6deg) scale(1.05); }
-
-.logo-text { font-size: 1.05rem; font-weight: 800; letter-spacing: -0.03em; }
-.logo-text .dot { color: var(--text-muted); font-weight: 400; }
-
-/* NAV LINKS */
-.nav-links { display: flex; list-style: none; gap: 2rem; align-items: center; }
-.nav-links a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.875rem;
-    font-weight: 500;
-    transition: color 0.2s;
-    position: relative;
-}
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: -4px; left: 0;
-    width: 0; height: 1.5px;
-    background: var(--text);
-    transition: width 0.3s ease;
-}
-.nav-links a:hover { color: var(--text); }
-.nav-links a:hover::after { width: 100%; }
-
-.nav-cta {
-    padding: 0.5rem 1.2rem;
-    border: 1px solid var(--border);
-    border-radius: 50px;
-    color: var(--text) !important;
-    font-weight: 600 !important;
-    transition: background 0.2s, border-color 0.2s;
-}
-.nav-cta:hover { background: var(--bg-alt); border-color: var(--text-muted); }
-.nav-cta::after { display: none !important; }
-
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    color: var(--text);
-    font-size: 1.4rem;
-    cursor: pointer;
-    padding: 0.25rem;
-}
-
-/* ===== HERO ===== */
-.hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    max-width: 1140px;
-    margin: 0 auto;
-    padding: 8rem 2rem 4rem;
-    gap: 4rem;
-}
-.hero-content { flex: 1; max-width: 560px; }
-.hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.72rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--text-muted);
-    margin-bottom: 1.5rem;
-}
-.hero-eyebrow::before { content: ''; width: 24px; height: 1.5px; background: var(--text-muted); }
-.hero-title { font-size: clamp(2.5rem, 6vw, 4.25rem); margin-bottom: 1.5rem; }
-.hero-title em { font-style: normal; color: var(--text-muted); }
-.hero-description {
-    font-size: 1.05rem;
-    color: var(--text-muted);
-    max-width: 460px;
-    margin-bottom: 2.5rem;
-    line-height: 1.7;
-}
-.hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-
-.btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.75rem 1.6rem;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.875rem;
-    transition: all 0.25s ease;
-    border: 1px solid transparent;
-    cursor: pointer;
-    font-family: inherit;
-}
-.btn-primary { background: var(--text); color: #fff; }
-.btn-primary:hover { background: #1f2937; transform: translateY(-1px); }
-.btn-secondary { border-color: var(--border); color: var(--text); background: transparent; }
-.btn-secondary:hover { border-color: var(--text-muted); background: var(--bg-alt); }
-
-.hero-visual { flex: 1; display: flex; justify-content: center; align-items: center; }
-.hero-card {
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
     border-radius: 16px;
-    padding: 2rem;
-    width: 100%;
-    max-width: 380px;
-    font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
-    font-size: 0.82rem;
-    line-height: 1.9;
-    color: var(--text-muted);
-    position: relative;
-}
-.hero-card::before {
-    content: '● ● ●';
-    position: absolute;
-    top: 14px; left: 18px;
-    font-size: 0.6rem;
-    letter-spacing: 4px;
-    color: #d1d5db;
-}
-.hero-card-body { margin-top: 1.2rem; }
-.code-keyword { color: #7c3aed; }
-.code-string  { color: #059669; }
-.code-prop    { color: #2563eb; }
-
-/* ===== TRUST BAR ===== */
-.trust-bar {
-    max-width: 1140px;
-    margin: 0 auto;
-    padding: 0 2rem 3rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    justify-content: center;
-}
-.trust-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.4rem 0.9rem;
-    border: 1px solid var(--border);
-    border-radius: 50px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--text-muted);
-    background: var(--bg-alt);
-}
-.trust-badge i { font-size: 0.85rem; }
-.trust-badge .bi-check-circle-fill { color: var(--success); }
-.trust-badge .bi-star-fill { color: #f59e0b; }
-.trust-badge .bi-lightning-charge-fill { color: #eab308; }
-.trust-badge .bi-geo-alt-fill { color: #3b82f6; }
-
-/* ===== SECTIONS ===== */
-.section { padding: 7rem 2rem; }
-.section-alt { background: var(--bg-alt); }
-.container { max-width: 1140px; margin: 0 auto; }
-
-.section-header { margin-bottom: 3.5rem; }
-.section-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--text-muted);
-    margin-bottom: 1rem;
-}
-.section-label::before { content: ''; width: 20px; height: 1.5px; background: var(--text-muted); }
-.section-title { font-size: clamp(1.8rem, 3.5vw, 2.75rem); max-width: 600px; }
-
-/* ===== STATS ===== */
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 1.5rem;
-}
-.stat-card {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 1.75rem 1.5rem;
-    text-align: center;
-    transition: border-color 0.3s;
-}
-.stat-card:hover { border-color: #d1d5db; }
-.stat-number {
-    font-size: 2rem;
-    font-weight: 800;
+    background: #4f46e5;
+    color: #fff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 1.5rem;
     letter-spacing: -0.04em;
-    line-height: 1;
-    margin-bottom: 0.4rem;
-}
-.stat-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
-
-/* ===== À PROPOS ===== */
-.about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: start;
-}
-.about-text p { color: var(--text-muted); margin-bottom: 1.25rem; font-size: 1rem; line-height: 1.75; }
-.about-facts { display: grid; gap: 1.25rem; margin-top: 2rem; }
-.fact {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--border);
-}
-.fact-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
-.fact-value { font-size: 0.9rem; font-weight: 600; text-align: right; }
-
-/* ===== PROJETS ===== */
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-}
-.project-card {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
-    display: flex;
-    flex-direction: column;
-}
-.project-card:hover {
-    transform: translateY(-4px);
-    border-color: #d1d5db;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
-}
-.project-visual {
-    width: 100%;
-    aspect-ratio: 6 / 3.4;
-    overflow: hidden;
-    background: #f3f4f6;
-    border-bottom: 1px solid var(--border);
-    position: relative;
-}
-.project-visual svg {
-    width: 100%; height: 100%;
-    display: block;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.project-card:hover .project-visual svg { transform: scale(1.03); }
-.project-info { padding: 1.4rem; flex: 1; display: flex; flex-direction: column; }
-.project-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 0.5rem;
-}
-.project-info h3 { font-size: 1.15rem; font-weight: 700; }
-.project-year {
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    padding: 0.12rem 0.55rem;
-    border: 1px solid var(--border);
-    border-radius: 50px;
-    font-weight: 500;
-}
-.project-description { color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; margin-bottom: 1rem; flex: 1; }
-.project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; margin-bottom: 1rem; }
-.project-tags li {
-    font-size: 0.68rem;
-    padding: 0.22rem 0.65rem;
-    border: 1px solid var(--border);
-    border-radius: 50px;
-    color: var(--text-muted);
-    font-weight: 500;
-    background: var(--bg-alt);
-}
-.project-link {
-    color: var(--text);
-    text-decoration: none;
-    font-size: 0.8rem;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    margin-top: auto;
-    transition: gap 0.25s ease;
-}
-.project-link:hover { gap: 0.55rem; }
-
-/* ===== TÉMOIGNAGES ===== */
-.testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-}
-.testimonial-card {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 1.75rem;
-    display: flex;
-    flex-direction: column;
-    transition: border-color 0.3s;
-}
-.testimonial-card:hover { border-color: #d1d5db; }
-.testimonial-stars {
-    display: flex;
-    gap: 0.15rem;
-    margin-bottom: 1rem;
-    color: #f59e0b;
-    font-size: 0.85rem;
-}
-.testimonial-text {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    line-height: 1.7;
-    flex: 1;
-    margin-bottom: 1.25rem;
-    font-style: italic;
-}
-.testimonial-author {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    border-top: 1px solid var(--border);
-    padding-top: 1rem;
-}
-.testimonial-avatar {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: var(--text);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    font-weight: 700;
-    flex-shrink: 0;
-}
-.testimonial-name { font-size: 0.85rem; font-weight: 600; }
-.testimonial-role { font-size: 0.75rem; color: var(--text-muted); }
-
-/* ===== CERTIFICATIONS ===== */
-.certs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-}
-.cert-card {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 1.75rem;
-    text-align: center;
-    transition: border-color 0.3s, transform 0.3s;
-}
-.cert-card:hover { border-color: #d1d5db; transform: translateY(-3px); }
-.cert-icon {
-    width: 48px; height: 48px;
-    margin: 0 auto 1rem;
-    border-radius: 12px;
-    background: var(--bg-alt);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.4rem;
-}
-.cert-card h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.3rem; }
-.cert-card p { font-size: 0.75rem; color: var(--text-muted); }
-
-/* ===== COMPÉTENCES ===== */
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.5rem;
-}
-.skill-card {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 1.75rem;
-    transition: border-color 0.3s ease;
-}
-.skill-card:hover { border-color: #d1d5db; }
-.skill-card h3 {
-    font-size: 0.95rem;
-    font-weight: 700;
-    margin-bottom: 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-.skill-icon {
-    width: 22px; height: 22px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    background: var(--text);
-    color: #fff;
-    font-size: 0.65rem;
-    font-weight: 800;
-}
-.skill-list { list-style: none; display: grid; gap: 0.6rem; }
-.skill-list li {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-.skill-list li::before {
+  }
+  .loader-monogram::before {
     content: '';
-    width: 4px; height: 4px;
-    border-radius: 50%;
-    background: var(--text-muted);
-    flex-shrink: 0;
-}
+    position: absolute; inset: -6px;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    border-top-color: #4f46e5;
+    border-right-color: #818cf8;
+    animation: spin 0.9s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loader-text {
+    font-size: .72rem; font-weight: 600; color: #71717a;
+    letter-spacing: .16em; text-transform: uppercase;
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: .4; } 50% { opacity: 1; } }
 
-/* ===== TECH LOGOS ===== */
-.tech-logos {
+  /* ===== LIGHTBOX / GALERIE ===== */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    background: rgba(9,9,11,.94);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    transition: opacity .3s ease;
+  }
+  .lightbox.open { display: flex; opacity: 1; }
+
+  .lightbox-content {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    max-height: 92vh;
+    background: #18181b;
+    border-radius: 16px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    box-shadow: 0 25px 80px rgba(0,0,0,.6);
+    transform: scale(.95);
+    transition: transform .3s ease;
+  }
+  .lightbox.open .lightbox-content { transform: scale(1); }
+
+  .lightbox-image-wrap {
+    position: relative;
+    background: #09090b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    overflow: hidden;
+  }
+  .lightbox-image {
+    width: 100%;
+    height: 100%;
+    max-height: 92vh;
+    object-fit: cover;
+    display: block;
+  }
+
+  .lightbox-info {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    color: #e4e4e7;
+    overflow-y: auto;
+  }
+  .lightbox-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: .5rem;
+    letter-spacing: -0.02em;
+  }
+  .lightbox-year {
+    font-size: .75rem;
+    color: #a1a1aa;
+    margin-bottom: 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+  }
+  .lightbox-desc {
+    font-size: .9rem;
+    line-height: 1.7;
+    color: #a1a1aa;
+    margin-bottom: 1.5rem;
+    flex: 1;
+  }
+  .lightbox-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 2.5rem;
-    padding-top: 2.5rem;
-    border-top: 1px solid var(--border);
-}
-.tech-logo {
+    gap: .4rem;
+    margin-bottom: 1.5rem;
+  }
+  .lightbox-tags span {
+    font-size: .72rem;
+    padding: .28rem .7rem;
+    border-radius: 6px;
+    background: #27272a;
+    color: #d4d4d8;
+  }
+  .lightbox-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--border);
-    border-radius: 50px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--text-muted);
-    background: var(--bg-alt);
-    transition: border-color 0.2s, color 0.2s;
-}
-.tech-logo:hover { border-color: var(--text-muted); color: var(--text); }
-.tech-logo i { font-size: 0.9rem; }
-
-/* ===== CONTACT ===== */
-.contact-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: start;
-}
-.contact-info p {
-    color: var(--text-muted);
-    font-size: 1rem;
-    line-height: 1.75;
-    margin-bottom: 2rem;
-    max-width: 400px;
-}
-.contact-links { display: grid; gap: 0.75rem; }
-.contact-link {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    gap: .4rem;
+    background: #4f46e5;
+    color: #fff;
+    padding: .7rem 1.25rem;
+    border-radius: 9999px;
+    font-size: .85rem;
+    font-weight: 600;
     text-decoration: none;
-    color: var(--text);
-    font-size: 0.9rem;
-    font-weight: 500;
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    transition: border-color 0.25s, background 0.25s, transform 0.2s;
-    word-break: break-all;
-}
-.contact-link:hover {
-    border-color: var(--text-muted);
-    background: var(--bg-alt);
-    transform: translateX(3px);
-}
-.contact-link i { font-size: 1.1rem; flex-shrink: 0; }
-.contact-link .bi-whatsapp { color: var(--whatsapp); }
-.contact-link .bi-linkedin { color: var(--linkedin); }
-.contact-link .bi-briefcase { color: var(--malt); }
-.contact-link .bi-github { color: #333; }
-.contact-link .bi-envelope { color: #EA4335; }
+    align-self: flex-start;
+    transition: background .2s;
+  }
+  .lightbox-link:hover { background: #4338ca; }
 
-.contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
-.form-group { display: flex; flex-direction: column; gap: 0.4rem; }
-.form-group label { font-size: 0.8rem; font-weight: 600; color: var(--text); }
-.form-group input,
-.form-group textarea {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 0.8rem 1rem;
-    color: var(--text);
-    font-family: inherit;
-    font-size: 0.9rem;
-    transition: border-color 0.25s, box-shadow 0.25s;
-}
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--text-muted);
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.04);
-}
-.form-group input::placeholder,
-.form-group textarea::placeholder { color: #9ca3af; }
-
-.btn-submit {
-    background: var(--text);
+  .lightbox-close {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: rgba(0,0,0,.6);
     color: #fff;
     border: none;
-    padding: 0.85rem 1.75rem;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 0.9rem;
     cursor: pointer;
-    font-family: inherit;
-    transition: background 0.25s, transform 0.2s;
-    align-self: flex-start;
-}
-.btn-submit:hover { background: #1f2937; transform: translateY(-1px); }
+    display: flex; align-items: center; justify-content: center;
+    z-index: 10;
+    transition: background .2s, transform .2s;
+  }
+  .lightbox-close:hover { background: rgba(0,0,0,.9); transform: rotate(90deg); }
 
-/* ===== FOOTER ===== */
-.footer { padding: 2.5rem 2rem; border-top: 1px solid var(--border); }
-.footer .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-.footer p { color: var(--text-muted); font-size: 0.8rem; }
-.footer-links { display: flex; gap: 1.5rem; }
-.footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
-.footer-links a:hover { color: var(--text); }
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.15);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,.2);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 10;
+    transition: background .2s, transform .2s;
+  }
+  .lightbox-nav:hover { background: rgba(255,255,255,.3); }
+  .lightbox-nav.prev { left: 1rem; }
+  .lightbox-nav.next { right: 1rem; }
 
-/* ===== ANIMATIONS ===== */
-.fade-up {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.fade-up.visible { opacity: 1; transform: translateY(0); }
+  .lightbox-counter {
+    position: absolute;
+    bottom: 1rem; left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,.6);
+    color: #fff;
+    font-size: .75rem;
+    padding: .35rem .9rem;
+    border-radius: 9999px;
+    backdrop-filter: blur(8px);
+    z-index: 10;
+  }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 900px) {
-    .hero { flex-direction: column; text-align: center; padding-top: 7rem; gap: 3rem; }
-    .hero-content { max-width: 100%; }
-    .hero-eyebrow { justify-content: center; }
-    .hero-description { margin-left: auto; margin-right: auto; }
-    .hero-actions { justify-content: center; }
-    .hero-visual { width: 100%; }
-    .hero-card { max-width: 100%; }
-    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
-}
-
-@media (max-width: 640px) {
-    .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%; left: 0; width: 100%;
-        background: var(--bg);
-        flex-direction: column;
-        padding: 1.5rem 2rem;
-        gap: 1.25rem;
-        border-bottom: 1px solid var(--border);
-        align-items: flex-start;
+  @media (max-width: 768px) {
+    .lightbox-content {
+      grid-template-columns: 1fr;
+      max-height: 92vh;
+      overflow-y: auto;
     }
-    .nav-links.active { display: flex; }
-    .menu-toggle { display: block; }
-    .section { padding: 5rem 1.5rem; }
-    .hero { padding: 7rem 1.5rem 3rem; }
-    .projects-grid { grid-template-columns: 1fr; }
-    .skills-grid { grid-template-columns: 1fr; }
-    .stats-grid { grid-template-columns: repeat(2, 1fr); }
-    .testimonials-grid { grid-template-columns: 1fr; }
-    .certs-grid { grid-template-columns: 1fr 1fr; }
-    .footer .container { flex-direction: column; text-align: center; }
-    .btn-submit { align-self: stretch; text-align: center; }
-    .logo-text { font-size: 0.95rem; }
-}
+    .lightbox-image-wrap { min-height: 220px; max-height: 45vh; }
+    .lightbox-info { padding: 1.25rem; }
+    .lightbox-title { font-size: 1.3rem; }
+    .lightbox-nav { width: 40px; height: 40px; }
+    .lightbox-nav.prev { left: .5rem; }
+    .lightbox-nav.next { right: .5rem; }
+  }
+
+  /* Skeleton while image loads */
+  .img-skeleton {
+    background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+  .dark .img-skeleton {
+    background: linear-gradient(90deg, #27272a 25%, #3f3f46 50%, #27272a 75%);
+    background-size: 200% 100%;
+  }
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
 </style>
 </head>
-<body>
+<body class="bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 font-sans antialiased transition-colors">
 
 <!-- LOADER -->
 <div id="loader">
-    <div class="loader-icon">
-        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-            <rect width="40" height="40" rx="10" fill="#0a0a0a"/>
-            <path d="M11 28V13l9 8 9-8v15" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </div>
-    <div class="loader-text">Chargement du portfolio</div>
+  <div class="loader-monogram">MC</div>
+  <div class="loader-text">Chargement du portfolio</div>
 </div>
 
-<!-- NAVIGATION -->
-<nav class="navbar">
-    <div class="nav-container">
-        <a href="#" class="logo">
-            <span class="logo-icon">
-                <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="34" height="34">
-                    <rect width="40" height="40" rx="10" fill="#0a0a0a"/>
-                    <path d="M11 28V13l9 8 9-8v15" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </span>
-            <span class="logo-text">Mardoche<span class="dot">.C</span></span>
-        </a>
-        <ul class="nav-links">
-            <li><a href="#about">À propos</a></li>
-            <li><a href="#projects">Projets</a></li>
-            <li><a href="#testimonials">Avis</a></li>
-            <li><a href="#skills">Compétences</a></li>
-            <li><a href="#contact" class="nav-cta">Me contacter</a></li>
-        </ul>
-        <button class="menu-toggle" aria-label="Menu">☰</button>
+<!-- NAVBAR -->
+<header id="nav" class="fixed top-0 inset-x-0 z-50 border-b border-transparent transition-colors">
+  <nav class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
+    <a href="#accueil" class="flex items-center gap-2 font-display font-bold text-lg">
+      <svg viewBox="0 0 40 40" class="w-8 h-8" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="10" fill="#4f46e5"/>
+        <path d="M11 28V13l9 8 9-8v15" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Mardoche<span class="text-indigo-600 dark:text-indigo-400">.</span></span>
+    </a>
+    <ul class="hidden md:flex items-center gap-1 text-sm font-medium">
+      <li><a href="#apropos" class="nav-link">À propos</a></li>
+      <li><a href="#competences" class="nav-link">Compétences</a></li>
+      <li><a href="#projets" class="nav-link">Projets</a></li>
+      <li><a href="#temoignages" class="nav-link">Témoignages</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <div class="flex items-center gap-2">
+      <button id="themeToggle" aria-label="Changer de thème" class="icon-btn">
+        <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+      </button>
+      <a href="#contact" class="hidden sm:inline-flex btn-primary text-sm">Me contacter</a>
+      <button id="menuBtn" aria-label="Menu" class="icon-btn md:hidden"><i data-lucide="menu" class="w-5 h-5"></i></button>
     </div>
-</nav>
-
-<!-- HERO -->
-<header class="hero">
-    <div class="hero-content">
-        <div class="hero-eyebrow">Développeur Full Stack</div>
-        <h1 class="hero-title">Je conçois des <em>produits web</em> simples et performants.</h1>
-        <p class="hero-description">
-            Du front-end au back-end, je transforme des idées en applications
-            robustes, rapides et pensées pour l'utilisateur.
-        </p>
-        <div class="hero-actions">
-            <a href="#projects" class="btn btn-primary">Voir mes projets</a>
-            <a href="#contact" class="btn btn-secondary">Discutons</a>
-        </div>
-    </div>
-    <div class="hero-visual">
-        <div class="hero-card">
-            <div class="hero-card-body">
-                <div><span class="code-keyword">const</span> developer = {</div>
-                <div>&nbsp;&nbsp;<span class="code-prop">name</span>: <span class="code-string">'Mardoche Cakpo'</span>,</div>
-                <div>&nbsp;&nbsp;<span class="code-prop">role</span>: <span class="code-string">'Full Stack'</span>,</div>
-                <div>&nbsp;&nbsp;<span class="code-prop">stack</span>: [<span class="code-string">'React'</span>, <span class="code-string">'Node'</span>, <span class="code-string">'MongoDB'</span>],</div>
-                <div>&nbsp;&nbsp;<span class="code-prop">focus</span>: <span class="code-string">'Clean Code'</span></div>
-                <div>};</div>
-            </div>
-        </div>
-    </div>
+  </nav>
+  <div id="mobileMenu" class="hidden md:hidden border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
+    <ul class="px-5 py-3 flex flex-col text-sm font-medium">
+      <li><a href="#apropos" class="mobile-link">À propos</a></li>
+      <li><a href="#competences" class="mobile-link">Compétences</a></li>
+      <li><a href="#projets" class="mobile-link">Projets</a></li>
+      <li><a href="#temoignages" class="mobile-link">Témoignages</a></li>
+      <li><a href="#contact" class="mobile-link">Contact</a></li>
+    </ul>
+  </div>
 </header>
 
-<!-- TRUST BAR -->
-<div class="trust-bar">
-    <span class="trust-badge"><i class="bi bi-check-circle-fill"></i> Disponible pour missions</span>
-    <span class="trust-badge"><i class="bi bi-lightning-charge-fill"></i> Réponse < 24h</span>
-    <span class="trust-badge"><i class="bi bi-star-fill"></i> Super Malter</span>
-    <span class="trust-badge"><i class="bi bi-geo-alt-fill"></i> Bénin · Remote</span>
-</div>
+<main>
 
-<!-- STATS -->
-<section class="section" style="padding-top:0;">
-    <div class="container">
-        <div class="stats-grid fade-up">
-            <div class="stat-card">
-                <div class="stat-number">6+</div>
-                <div class="stat-label">Projets livrés</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">100%</div>
-                <div class="stat-label">Clients satisfaits</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">5/5</div>
-                <div class="stat-label">Note moyenne</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">3+</div>
-                <div class="stat-label">Années d'expérience</div>
-            </div>
-        </div>
+<!-- HERO -->
+<section id="accueil" class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+  <div class="absolute inset-0 grid-bg pointer-events-none"></div>
+  <div class="relative max-w-6xl mx-auto px-5 grid md:grid-cols-[1.3fr_1fr] gap-12 items-center">
+    <div class="reveal">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-6">
+        <span class="relative flex w-2 h-2">
+          <span class="absolute inline-flex w-full h-full rounded-full bg-emerald-500 opacity-75 animate-ping"></span>
+          <span class="relative inline-flex w-2 h-2 rounded-full bg-emerald-500"></span>
+        </span>
+        Disponible pour de nouveaux projets
+      </div>
+      <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05]">
+        Mardoche Cakpo<br>
+        <span class="text-indigo-600 dark:text-indigo-400">Développeur Web</span> & Mobile
+      </h1>
+      <p class="mt-6 text-lg text-zinc-600 dark:text-zinc-400 max-w-xl leading-relaxed">
+        Je conçois et développe des applications web et mobiles modernes, rapides et intuitives — de l'idée jusqu'à la mise en production.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="#projets" class="btn-primary">Voir mes projets <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+        <a href="#contact" class="btn-secondary"><i data-lucide="mail" class="w-4 h-4"></i> Travaillons ensemble</a>
+      </div>
+      <div class="mt-10 flex items-center gap-3">
+        <a href="https://github.com/mardochecakpodev-bot" target="_blank" rel="noopener" aria-label="GitHub" class="social-btn">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8 0 3.2.9.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.1.9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/search/results/all/?keywords=Mardoch%C3%A9e%20CAKPO" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-btn">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+        </a>
+        <a href="https://wa.me/2290148220001?text=Bonjour%20Mardoche%2C%20je%20vous%20contacte%20depuis%20votre%20portfolio." target="_blank" rel="noopener" aria-label="WhatsApp" class="social-btn">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.09 3.2 5.07 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35zM12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88 2.64 0 5.13 1.03 7 2.9a9.83 9.83 0 0 1 2.9 7c0 5.45-4.44 9.87-9.9 9.87zm8.42-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .17 5.33.17 11.88c0 2.09.55 4.13 1.59 5.93L.07 24l6.34-1.66a11.87 11.87 0 0 0 5.64 1.44h.01c6.55 0 11.88-5.33 11.88-11.88 0-3.17-1.24-6.15-3.47-8.41z"/></svg>
+        </a>
+        <a href="https://en.malt.fr/profile/mardocheecakpo" target="_blank" rel="noopener" aria-label="Malt" class="social-btn">
+          <span class="font-display font-bold text-sm">M</span>
+        </a>
+        <a href="mailto:mardochecakpodev@gmail.com" aria-label="Email" class="social-btn">
+          <i data-lucide="mail" class="w-5 h-5"></i>
+        </a>
+      </div>
     </div>
+
+    <div class="reveal relative mx-auto w-full max-w-sm">
+      <div class="aspect-square rounded-3xl bg-indigo-600 dark:bg-indigo-500 relative overflow-hidden flex items-center justify-center">
+        <div class="absolute inset-0 dots-bg opacity-30"></div>
+        <span class="relative font-display text-[7rem] font-bold text-white tracking-tighter leading-none">MC</span>
+      </div>
+      <div class="absolute -bottom-5 -left-5 card px-4 py-3 flex items-center gap-3 shadow-lg">
+        <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+          <i data-lucide="code-2" class="w-5 h-5"></i>
+        </div>
+        <div><p class="text-sm font-semibold">5+ ans</p><p class="text-xs text-zinc-500">d'expérience</p></div>
+      </div>
+      <div class="absolute -top-5 -right-5 card px-4 py-3 flex items-center gap-3 shadow-lg">
+        <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+          <i data-lucide="smartphone" class="w-5 h-5"></i>
+        </div>
+        <div><p class="text-sm font-semibold">Web & Mobile</p><p class="text-xs text-zinc-500">iOS · Android</p></div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- À PROPOS -->
-<section id="about" class="section section-alt">
-    <div class="container">
-        <div class="section-header fade-up">
-            <div class="section-label">À propos</div>
-            <h2 class="section-title">Un développeur qui aime la clarté.</h2>
-        </div>
-        <div class="about-grid">
-            <div class="about-text fade-up">
-                <p>
-                    Développeur full stack passionné, je me spécialise dans la création
-                    d'applications web robustes et intuitives. J'aime résoudre des problèmes
-                    complexes et transformer des idées en produits fonctionnels.
-                </p>
-                <p>
-                    Mon approche se concentre sur la qualité du code, la performance et
-                    l'expérience utilisateur. Je suis constamment en veille technologique
-                    pour intégrer les meilleures pratiques à mes projets.
-                </p>
-                <div class="about-facts">
-                    <div class="fact">
-                        <span class="fact-label">Disponibilité</span>
-                        <span class="fact-value">Ouvert aux missions</span>
-                    </div>
-                    <div class="fact">
-                        <span class="fact-label">Spécialité</span>
-                        <span class="fact-value">Full Stack Web</span>
-                    </div>
-                    <div class="fact">
-                        <span class="fact-label">Mode</span>
-                        <span class="fact-value">Remote / Hybride</span>
-                    </div>
-                </div>
-            </div>
-            <div class="about-text fade-up">
-                <p>
-                    Je travaille principalement avec l'écosystème JavaScript : React pour
-                    des interfaces réactives, Node.js et Express pour des API solides,
-                    et MongoDB ou PostgreSQL pour la persistance des données.
-                </p>
-                <p>
-                    Ce qui me motive ? Livrer des produits qui fonctionnent, qui sont
-                    maintenables, et qui apportent une réelle valeur à leurs utilisateurs.
-                </p>
-                <a href="https://github.com/mardochecakpodev-bot" target="_blank" rel="noopener" class="btn btn-secondary" style="margin-top:0.5rem;">
-                    <i class="bi bi-github"></i> Voir mon GitHub
-                </a>
-            </div>
-        </div>
+<section id="apropos" class="py-20 md:py-28 border-t border-zinc-100 dark:border-zinc-900">
+  <div class="max-w-6xl mx-auto px-5 grid md:grid-cols-2 gap-12">
+    <div class="reveal">
+      <p class="eyebrow">À propos</p>
+      <h2 class="section-title">Transformer des idées en produits numériques utiles.</h2>
+      <div class="mt-8 flex flex-wrap gap-2">
+        <span class="badge border-emerald-200 dark:border-emerald-500/30 text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10">
+          <i data-lucide="check-circle" class="w-3 h-3"></i> Disponible
+        </span>
+        <span class="badge border-indigo-200 dark:border-indigo-500/30 text-indigo-700 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10">
+          <i data-lucide="zap" class="w-3 h-3"></i> Réponse &lt; 24h
+        </span>
+        <span class="badge border-amber-200 dark:border-amber-500/30 text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-500/10">
+          <i data-lucide="star" class="w-3 h-3"></i> Super Malter
+        </span>
+        <span class="badge border-blue-200 dark:border-blue-500/30 text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10">
+          <i data-lucide="map-pin" class="w-3 h-3"></i> Bénin · Remote
+        </span>
+      </div>
     </div>
-</section>
-
-<!-- PROJETS -->
-<section id="projects" class="section">
-    <div class="container">
-        <div class="section-header fade-up">
-            <div class="section-label">Projets</div>
-            <h2 class="section-title">Réalisations sélectionnées.</h2>
-        </div>
-        <div class="projects-grid">
-
-            <!-- PROJET 1 : GOLD RUSH -->
-            <article class="project-card fade-up">
-                <div class="project-visual">
-                    <svg viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <linearGradient id="goldGrad" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stop-color="#f0b90b" stop-opacity="0.35"/>
-                                <stop offset="100%" stop-color="#f0b90b" stop-opacity="0"/>
-                            </linearGradient>
-                        </defs>
-                        <rect width="600" height="340" fill="#0a0a0a"/>
-                        <rect width="60" height="340" fill="#111"/>
-                        <circle cx="30" cy="35" r="14" fill="#f0b90b"/>
-                        <text x="30" y="41" fill="#0a0a0a" font-family="Inter" font-size="14" font-weight="800" text-anchor="middle">G</text>
-                        <text x="80" y="42" fill="#fff" font-family="Inter" font-size="16" font-weight="700">Gold Rush</text>
-                        <text x="80" y="60" fill="#666" font-family="Inter" font-size="10">Portfolio · Live</text>
-                        <circle cx="565" cy="35" r="4" fill="#00c896"/>
-                        <text x="550" y="39" fill="#00c896" font-family="Inter" font-size="10" text-anchor="end">LIVE</text>
-                        <rect x="80" y="80" width="500" height="160" fill="#111" rx="8"/>
-                        <polyline points="100,200 140,185 180,195 220,160 260,170 300,140 340,150 380,115 420,130 460,100 500,110 550,85"
-                            fill="none" stroke="#f0b90b" stroke-width="2"/>
-                        <polygon points="100,200 140,185 180,195 220,160 260,170 300,140 340,150 380,115 420,130 460,100 500,110 550,85 550,230 100,230"
-                            fill="url(#goldGrad)"/>
-                        <circle cx="550" cy="85" r="4" fill="#f0b90b"/>
-                        <text x="100" y="270" fill="#888" font-family="Inter" font-size="10">BTC</text>
-                        <text x="100" y="288" fill="#fff" font-family="Inter" font-size="13" font-weight="700">$67,432</text>
-                        <text x="100" y="302" fill="#00c896" font-family="Inter" font-size="9">▲ 2.4%</text>
-                        <text x="220" y="270" fill="#888" font-family="Inter" font-size="10">ETH</text>
-                        <text x="220" y="288" fill="#fff" font-family="Inter" font-size="13" font-weight="700">$3,208</text>
-                        <text x="220" y="302" fill="#ff4d4d" font-family="Inter" font-size="9">▼ 1.1%</text>
-                        <text x="340" y="270" fill="#888" font-family="Inter" font-size="10">SOL</text>
-                        <text x="340" y="288" fill="#fff" font-family="Inter" font-size="13" font-weight="700">$182.55</text>
-                        <text x="340" y="302" fill="#00c896" font-family="Inter" font-size="9">▲ 5.7%</text>
-                        <text x="460" y="270" fill="#888" font-family="Inter" font-size="10">ADA</text>
-                        <text x="460" y="288" fill="#fff" font-family="Inter" font-size="13" font-weight="700">$0.62</text>
-                        <text x="460" y="302" fill="#00c896" font-family="Inter" font-size="9">▲ 0.9%</text>
-                    </svg>
-                </div>
-                <div class="project-info">
-                    <div class="project-header">
-                        <h3>Gold Rush</h3>
-                        <span class="project-year">2026</span>
-                    </div>
-                    <p class="project-description">
-                        Plateforme de suivi de cryptomonnaies en temps réel avec graphiques
-                        interactifs, alertes de prix et gestion de portefeuille multi-actifs.
-                    </p>
-                    <ul class="project-tags">
-                        <li>React</li><li>Node.js</li><li>WebSocket</li><li>PostgreSQL</li>
-                    </ul>
-                    <a href="https://github.com/mardochecakpodev-bot" target="_blank" rel="noopener" class="project-link">
-                        Voir le profil
-                        <i class="bi bi-arrow-up-right"></i>
-                    </a>
-                </div>
-            </article>
-
-            <!-- PROJET 2 : SHOPWAVE -->
-            <article class="project-card fade-up">
-                <div class="project-visual">
-                    <svg viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="600" height="340" fill="#f7f7f8"/>
-                        <rect width="600" height="50" fill="#fff"/>
-                        <text x="30" y="32" fill="#0a0a0a" font-family="Inter" font-size="16" font-weight="800">ShopWave</text>
-                        <rect x="380" y="15" width="180" height="22" rx="11" fill="#f0f0f0"/>
-                        <text x="395" y="30" fill="#999" font-family="Inter" font-size="10">Rechercher…</text>
-                        <circle cx="580" cy="26" r="10" fill="#0a0a0a"/>
-                        <text x="580" y="30" fill="#fff" font-family="Inter" font-size="10" text-anchor="middle" font-weight="700">2</text>
-                        <rect x="20" y="70" width="180" height="250" fill="#fff" rx="8"/>
-                        <rect x="20" y="70" width="180" height="120" fill="#e8e8ea" rx="8"/>
-                        <text x="30" y="215" fill="#0a0a0a" font-family="Inter" font-size="12" font-weight="700">Sneakers Pro</text>
-                        <text x="30" y="235" fill="#666" font-family="Inter" font-size="10">Chaussures</text>
-                        <text x="30" y="265" fill="#0a0a0a" font-family="Inter" font-size="14" font-weight="800">€89.90</text>
-                        <rect x="30" y="280" width="160" height="28" rx="6" fill="#0a0a0a"/>
-                        <text x="110" y="298" fill="#fff" font-family="Inter" font-size="10" text-anchor="middle" font-weight="600">Ajouter</text>
-                        <rect x="215" y="70" width="180" height="250" fill="#fff" rx="8"/>
-                        <rect x="215" y="70" width="180" height="120" fill="#e8e8ea" rx="8"/>
-                        <text x="225" y="215" fill="#0a0a0a" font-family="Inter" font-size="12" font-weight="700">Casque Audio</text>
-                        <text x="225" y="235" fill="#666" font-family="Inter" font-size="10">Électronique</text>
-                        <text x="225" y="265" fill="#0a0a0a" font-family="Inter" font-size="14" font-weight="800">€149.00</text>
-                        <rect x="225" y="280" width="160" height="28" rx="6" fill="#0a0a0a"/>
-                        <text x="305" y="298" fill="#fff" font-family="Inter" font-size="10" text-anchor="middle" font-weight="600">Ajouter</text>
-                        <rect x="410" y="70" width="180" height="250" fill="#fff" rx="8"/>
-                        <rect x="410" y="70" width="180" height="120" fill="#e8e8ea" rx="8"/>
-                        <text x="420" y="215" fill="#0a0a0a" font-family="Inter" font-size="12" font-weight="700">Montre Luxe</text>
-                        <text x="420" y="235" fill="#666" font-family="Inter" font-size="10">Accessoires</text>
-                        <text x="420" y="265" fill="#0a0a0a" font-family="Inter" font-size="14" font-weight="800">€249.00</text>
-                        <rect x="420" y="280" width="160" height="28" rx="6" fill="#0a0a0a"/>
-                        <text x="500" y="298" fill="#fff" font-family="Inter" font-size="10" text-anchor="middle" font-weight="600">Ajouter</text>
-                    </svg>
-                </div>
-                <div class="project-info">
-                    <div class="project-header">
-                        <h3>ShopWave</h3>
-                        <span class="project-year">2025</span>
-                    </div>
-                    <p class="project-description">
-                        E-commerce moderne avec paiement Stripe, gestion de stock en temps
-                        réel et back-office administrateur complet.
-                    </p>
-                    <ul class="project-tags">
-                        <li>Next.js</li><li>Stripe</li><li>Prisma</li><li>Tailwind</li>
-                    </ul>
-                    <a href="#" class="project-link">
-                        Voir le code
-                        <i class="bi bi-arrow-up-right"></i>
-                    </a>
-                </div>
-            </article>
-
-            <!-- PROJET 3 : TASKFLOW -->
-            <article class="project-card fade-up">
-                <div class="project-visual">
-                    <svg viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="600" height="340" fill="#f5f5f7"/>
-                        <rect width="600" height="50" fill="#fff"/>
-                        <text x="30" y="32" fill="#0a0a0a" font-family="Inter" font-size="16" font-weight="800">TaskFlow</text>
-                        <circle cx="540" cy="26" r="12" fill="#7c5cff"/>
-                        <circle cx="565" cy="26" r="12" fill="#ff7a5c"/>
-                        <circle cx="590" cy="26" r="12" fill="#5ccfff"/>
-                        <text x="30" y="80" fill="#999" font-family="Inter" font-size="10" font-weight="600">À FAIRE (3)</text>
-                        <rect x="20" y="90" width="180" height="60" fill="#fff" rx="6"/>
-                        <text x="30" y="112" fill="#0a0a0a" font-family="Inter" font-size="11" font-weight="600">Design landing page</text>
-                        <rect x="30" y="125" width="40" height="14" rx="7" fill="#ffe0b3"/>
-                        <text x="50" y="135" fill="#a86b00" font-family="Inter" font-size="8" text-anchor="middle">UI</text>
-                        <rect x="20" y="160" width="180" height="60" fill="#fff" rx="6"/>
-                        <text x="30" y="182" fill="#0a0a0a" font-family="Inter" font-size="11" font-weight="600">Intégrer Stripe</text>
-                        <rect x="30" y="195" width="55" height="14" rx="7" fill="#ffd6d6"/>
-                        <text x="57" y="205" fill="#a83030" font-family="Inter" font-size="8" text-anchor="middle">BACKEND</text>
-                        <rect x="20" y="230" width="180" height="60" fill="#fff" rx="6"/>
-                        <text x="30" y="252" fill="#0a0a0a" font-family="Inter" font-size="11" font-weight="600">Tests unitaires</text>
-                        <rect x="30" y="265" width="45" height="14" rx="7" fill="#d6f0ff"/>
-                        <text x="52" y="275" fill="#0060a8" font-family="Inter" font-size="8" text-anchor="middle">QA</text>
-                        <text x="220" y="80" fill="#999" font-family="Inter" font-size="10" font-weight="600">EN COURS (2)</text>
-                        <rect x="210" y="90" width="180" height="60" fill="#fff" rx="6" stroke="#7c5cff" stroke-width="1.5"/>
-                        <text x="220" y="112" fill="#0a0a0a" font-family="Inter" font-size="11" font-weight="600">API authentification</text>
-                        <rect x="220" y="125" width="55" height="14" rx="7" fill="#e0d6ff"/>
-                        <text x="247" y="135" fill="#5535cc" font-family="Inter" font-size="8" text-anchor="middle">BACKEND</text>
-                        <rect x="210" y="160" width="180" height="60" fill="#fff" rx="6"/>
-                        <text x="220" y="182" fill="#0a0a0a" font-family="Inter" font-size="11" font-weight="600">WebSockets</text>
-                        <rect x="220" y="195" width="55" height="14" rx="7" fill="#d6f0ff"/>
-                        <text x="247" y="205" fill="#0060a8" font-family="Inter" font-size="8" text-anchor="middle">REALTIME</text>
-                        <text x="410" y="80" fill="#999" font-family="Inter" font-size="10" font-weight="600">TERMINÉ (5)</text>
-                        <rect x="400" y="90" width="180" height="60" fill="#fff" rx="6" opacity="0.7"/>
-                        <text x="410" y="112" fill="#999" font-family="Inter" font-size="11" font-weight="600" text-decoration="line-through">Setup CI/CD</text>
-                        <rect x="400" y="160" width="180" height="60" fill="#fff" rx="6" opacity="0.7"/>
-                        <text x="410" y="182" fill="#999" font-family="Inter" font-size="11" font-weight="600" text-decoration="line-through">Dashboard admin</text>
-                        <rect x="400" y="230" width="180" height="60" fill="#fff" rx="6" opacity="0.7"/>
-                        <text x="410" y="252" fill="#999" font-family="Inter" font-size="11" font-weight="600" text-decoration="line-through">Notifs email</text>
-                    </svg>
-                </div>
-                <div class="project-info">
-                    <div class="project-header">
-                        <h3>TaskFlow</h3>
-                        <span class="project-year">2025</span>
-                    </div>
-                    <p class="project-description">
-                        Application de gestion de tâches en équipe façon Kanban, avec
-                        collaboration temps réel, notifications et suivi d'activité.
-                    </p>
-                    <ul class="project-tags">
-                        <li>React</li><li>TypeScript</li><li>Socket.io</li><li>MongoDB</li>
-                    </ul>
-                    <a href="#" class="project-link">
-                        Voir le code
-                        <i class="bi bi-arrow-up-right"></i>
-                    </a>
-                </div>
-            </article>
-
-            <!-- PROJET 4 : CHATTERLY -->
-            <article class="project-card fade-up">
-                <div class="project-visual">
-                    <svg viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="600" height="340" fill="#fff"/>
-                        <rect width="200" height="340" fill="#f5f5f7"/>
-                        <text x="20" y="35" fill="#0a0a0a" font-family="Inter" font-size="15" font-weight="800">Chatterly</text>
-                        <rect x="20" y="55" width="160" height="35" rx="8" fill="#fff"/>
-                        <circle cx="40" cy="72" r="10" fill="#7c5cff"/>
-                        <text x="58" y="72" fill="#0a0a0a" font-family="Inter" font-size="10" font-weight="600">Sarah K.</text>
-                        <text x="58" y="84" fill="#999" font-family="Inter" font-size="8">En ligne</text>
-                        <rect x="20" y="100" width="160" height="35" rx="8" fill="#0a0a0a"/>
-                        <circle cx="40" cy="117" r="10" fill="#ff7a5c"/>
-                        <text x="58" y="117" fill="#fff" font-family="Inter" font-size="10" font-weight="600">Marc D.</text>
-                        <text x="58" y="129" fill="#bbb" font-family="Inter" font-size="8">Il y a 2 min</text>
-                        <rect x="20" y="145" width="160" height="35" rx="8" fill="none"/>
-                        <circle cx="40" cy="162" r="10" fill="#5ccfff"/>
-                        <text x="58" y="162" fill="#0a0a0a" font-family="Inter" font-size="10" font-weight="600">Léa M.</text>
-                        <text x="58" y="174" fill="#999" font-family="Inter" font-size="8">Il y a 1 h</text>
-                        <rect x="200" y="0" width="400" height="50" fill="#fff" stroke="#eee"/>
-                        <circle cx="225" cy="26" r="14" fill="#ff7a5c"/>
-                        <text x="245" y="24" fill="#0a0a0a" font-family="Inter" font-size="12" font-weight="700">Marc D.</text>
-                        <text x="245" y="38" fill="#00c896" font-family="Inter" font-size="9">● En ligne</text>
-                        <rect x="230" y="80" width="220" height="45" rx="10" fill="#f5f5f7"/>
-                        <text x="245" y="100" fill="#0a0a0a" font-family="Inter" font-size="10">Salut ! Tu as vu le nouveau design ?</text>
-                        <text x="245" y="114" fill="#999" font-family="Inter" font-size="8">09:42</text>
-                        <rect x="380" y="145" width="200" height="45" rx="10" fill="#0a0a0a"/>
-                        <text x="395" y="165" fill="#fff" font-family="Inter" font-size="10">Oui, super boulot 🔥</text>
-                        <text x="395" y="179" fill="#888" font-family="Inter" font-size="8">09:43</text>
-                        <rect x="230" y="210" width="260" height="45" rx="10" fill="#f5f5f7"/>
-                        <text x="245" y="230" fill="#0a0a0a" font-family="Inter" font-size="10">Je te fais un retour cette après-midi</text>
-                        <text x="245" y="244" fill="#999" font-family="Inter" font-size="8">09:45</text>
-                        <circle cx="240" cy="290" r="12" fill="#7c5cff"/>
-                        <text x="240" y="294" fill="#fff" font-family="Inter" font-size="10" text-anchor="middle">+</text>
-                        <rect x="260" y="278" width="310" height="24" rx="12" fill="#f5f5f7"/>
-                        <text x="275" y="294" fill="#999" font-family="Inter" font-size="10">Écrire un message…</text>
-                    </svg>
-                </div>
-                <div class="project-info">
-                    <div class="project-header">
-                        <h3>Chatterly</h3>
-                        <span class="project-year">2025</span>
-                    </div>
-                    <p class="project-description">
-                        Messagerie instantanée avec groupes, partage de médias, statut en
-                        ligne et chiffrement des messages.
-                    </p>
-                    <ul class="project-tags">
-                        <li>React</li><li>Firebase</li><li>WebSocket</li><li>Tailwind</li>
-                    </ul>
-                    <a href="#" class="project-link">
-                        Voir le code
-                        <i class="bi bi-arrow-up-right"></i>
-                    </a>
-                </div>
-            </article>
-
-            <!-- PROJET 5 : INSIGHTBOARD -->
-            <article class="project-card fade-up">
-                <div class="project-visual">
-                    <svg viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="600" height="340" fill="#0f172a"/>
-                        <rect width="600" height="50" fill="#1e293b"/>
-                        <text x="30" y="32" fill="#fff" font-family="Inter" font-size="16" font-weight="800">InsightBoard</text>
-                        <text x="530" y="32" fill="#94a3b8" font-family="Inter" font-size="10" text-anchor="end">Analytics</text>
-                        <rect x="20" y="70" width="130" height="70" fill="#1e293b" rx="8"/>
-                        <text x="35" y="95" fill="#94a3b8" font-family="Inter" font-size="9">Revenus</text>
-                        <text x="35" y="120" fill="#fff" font-family="Inter" font-size="16" font-weight="800">€24.8k</text>
-                        <text x="35" y="133" fill="#22c55e" font-family="Inter" font-size="8">▲ 12.5%</text>
-                        <rect x="165" y="70" width="130" height="70" fill="#1e293b" rx="8"/>
-                        <text x="180" y="95" fill="#94a3b8" font-family="Inter" font-size="9">Utilisateurs</text>
-                        <text x="180" y="120" fill="#fff" font-family="Inter" font-size="16" font-weight="800">8,432</text>
-                        <text x="180" y="133" fill="#22c55e" font-family="Inter" font-size="8">▲ 8.2%</text>
-                        <rect x="310" y="70" width="130" height="70" fill="#1e293b" rx="8"/>
-                        <text x="325" y="95" fill="#94a3b8" font-family="Inter" font-size="9">Commandes</text>
-                        <text x="325" y="120" fill="#fff" font-family="Inter" font-size="16" font-weight="800">1,245</text>
-                        <text x="325" y="133" fill="#ef4444" font-family="Inter" font-size="8">▼ 3.1%</text>
-                        <rect x="455" y="70" width="130" height="70" fill="#1e293b" rx="8"/>
-                        <text x="470" y="95" fill="#94a3b8" font-family="Inter" font-size="9">Conversion</text>
-                        <text x="470" y="120" fill="#fff" font-family="Inter" font-size="16" font-weight="800">4.8%</text>
-                        <text x="470" y="133" fill="#22c55e" font-family="Inter" font-size="8">▲ 1.2%</text>
-                        <rect x="20" y="160" width="570" height="160" fill="#1e293b" rx="8"/>
-                        <text x="40" y="185" fill="#94a3b8" font-family="Inter" font-size="10">Évolution mensuelle</text>
-                        <polyline points="50,270 110,250 170,260 230,220 290,230 350,200 410,210 470,180 530,190 570,170"
-                            fill="none" stroke="#3b82f6" stroke-width="2"/>
-                        <circle cx="570" cy="170" r="3" fill="#3b82f6"/>
-                    </svg>
-                </div>
-                <div class="project-info">
-                    <div class="project-header">
-                        <h3>InsightBoard</h3>
-                        <span class="project-year">2026</span>
-                    </div>
-                    <p class="project-description">
-                        Tableau de bord analytique en temps réel pour le suivi des ventes et du comportement utilisateur.
-                    </p>
-                    <ul class="project-tags">
-                        <li>Vue.js</li><li>D3.js</li><li>Node.js</li><li>MySQL</li>
-                    </ul>
-                    <a href="#" class="project-link">
-                        Voir le code
-                        <i class="bi bi-arrow-up-right"></i>
-                    </a>
-                </div>
-            </article>
-
-            <!-- PROJET 6 : STOCKAPI -->
-            <article class="project-card fade-up">
-                <div class="project-visual">
-                    <svg viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="600" height="340" fill="#1a1a2e"/>
-                        <rect width="600" height="50" fill="#16213e"/>
-                        <text x="30" y="32" fill="#fff" font-family="Inter" font-size="16" font-weight="800">StockAPI</text>
-                        <text x="530" y="32" fill="#94a3b8" font-family="Inter" font-size="10" text-anchor="end">REST · v2</text>
-                        <rect x="20" y="70" width="560" height="250" fill="#0f172a" rx="8"/>
-                        <text x="40" y="100" fill="#22c55e" font-family="monospace" font-size="11">GET</text>
-                        <text x="90" y="100" fill="#fff" font-family="monospace" font-size="11">/api/products</text>
-                        <text x="400" y="100" fill="#64748b" font-family="monospace" font-size="10">200 OK</text>
-                        <rect x="40" y="115" width="520" height="1" fill="#1e293b"/>
-                        <text x="40" y="145" fill="#22c55e" font-family="monospace" font-size="11">POST</text>
-                        <text x="90" y="145" fill="#fff" font-family="monospace" font-size="11">/api/orders</text>
-                        <text x="400" y="145" fill="#64748b" font-family="monospace" font-size="10">201 Created</text>
-                        <rect x="40" y="160" width="520" height="1" fill="#1e293b"/>
-                        <text x="40" y="190" fill="#f59e0b" font-family="monospace" font-size="11">PUT</text>
-                        <text x="90" y="190" fill="#fff" font-family="monospace" font-size="11">/api/products/:id</text>
-                        <text x="400" y="190" fill="#64748b" font-family="monospace" font-size="10">200 OK</text>
-                        <rect x="40" y="205" width="520" height="1" fill="#1e293b"/>
-                        <text x="40" y="235" fill="#ef4444" font-family="monospace" font-size="11">DELETE</text>
-                        <text x="90" y="235" fill="#fff" font-family="monospace" font-size="11">/api/orders/:id</text>
-                        <text x="400" y="235" fill="#64748b" font-family="monospace" font-size="10">204 No Content</text>
-                        <text x="40" y="290" fill="#64748b" font-family="monospace" font-size="9">{"status": "success", "data": [...]}</text>
-                    </svg>
-                </div>
-                <div class="project-info">
-                    <div class="project-header">
-                        <h3>StockAPI</h3>
-                        <span class="project-year">2025</span>
-                    </div>
-                    <p class="project-description">
-                        API REST sécurisée pour la gestion de stock et de commandes, avec authentification JWT et documentation Swagger.
-                    </p>
-                    <ul class="project-tags">
-                        <li>Express</li><li>MongoDB</li><li>JWT</li><li>Swagger</li>
-                    </ul>
-                    <a href="#" class="project-link">
-                        Voir le code
-                        <i class="bi bi-arrow-up-right"></i>
-                    </a>
-                </div>
-            </article>
-
-        </div>
+    <div class="reveal space-y-5 text-zinc-600 dark:text-zinc-400 leading-relaxed">
+      <p>Je suis <strong class="text-zinc-900 dark:text-white font-semibold">Mardoche Cakpo</strong>, développeur web et mobile passionné par la création d'expériences numériques soignées. J'accompagne startups, entreprises et entrepreneurs dans la conception d'applications performantes et faciles à utiliser.</p>
+      <p>Du front-end au back-end, en passant par les applications mobiles cross-platform, j'aime écrire un code propre, maintenable, et livrer des produits qui ont un réel impact.</p>
+      <div class="grid grid-cols-3 gap-4 pt-4">
+        <div class="stat"><p class="stat-num" data-count="40">0</p><p class="stat-label">Projets livrés</p></div>
+        <div class="stat"><p class="stat-num" data-count="25">0</p><p class="stat-label">Clients satisfaits</p></div>
+        <div class="stat"><p class="stat-num" data-count="5">0</p><p class="stat-label">Années d'expérience</p></div>
+      </div>
     </div>
-</section>
-
-<!-- TÉMOIGNAGES -->
-<section id="testimonials" class="section section-alt">
-    <div class="container">
-        <div class="section-header fade-up">
-            <div class="section-label">Témoignages</div>
-            <h2 class="section-title">Ce que disent mes clients.</h2>
-        </div>
-        <div class="testimonials-grid">
-            <div class="testimonial-card fade-up">
-                <div class="testimonial-stars">
-                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p class="testimonial-text">
-                    "Mardoche a livré notre plateforme e-commerce en avance sur le planning.
-                    Le code est propre, documenté, et il a su s'adapter à nos contraintes métier.
-                    Je recommande sans hésiter."
-                </p>
-                <div class="testimonial-author">
-                    <div class="testimonial-avatar">SK</div>
-                    <div>
-                        <div class="testimonial-name">Sarah K.</div>
-                        <div class="testimonial-role">Fondatrice · Boutique en ligne</div>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card fade-up">
-                <div class="testimonial-stars">
-                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p class="testimonial-text">
-                    "Très bon communicant, réactif et force de proposition. Il a repris
-                    une API existante et l'a optimisée de manière significative. Un vrai
-                    professionnel."
-                </p>
-                <div class="testimonial-author">
-                    <div class="testimonial-avatar">MD</div>
-                    <div>
-                        <div class="testimonial-name">Marc D.</div>
-                        <div class="testimonial-role">CTO · Startup SaaS</div>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card fade-up">
-                <div class="testimonial-stars">
-                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p class="testimonial-text">
-                    "J'ai fait appel à Mardoche pour un tableau de bord sur mesure.
-                    Le résultat dépasse mes attentes : rapide, intuitif et visuellement
-                    soigné. Je referai appel à lui."
-                </p>
-                <div class="testimonial-author">
-                    <div class="testimonial-avatar">LM</div>
-                    <div>
-                        <div class="testimonial-name">Léa M.</div>
-                        <div class="testimonial-role">Product Manager · Agence digitale</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- CERTIFICATIONS & BADGES -->
-<section class="section">
-    <div class="container">
-        <div class="section-header fade-up">
-            <div class="section-label">Certifications & Badges</div>
-            <h2 class="section-title">Des signaux de confiance vérifiés.</h2>
-        </div>
-        <div class="certs-grid">
-            <div class="cert-card fade-up">
-                <div class="cert-icon">⭐</div>
-                <h4>Super Malter</h4>
-                <p>Badge Malt · Note ≥ 4.5/5</p>
-            </div>
-            <div class="cert-card fade-up">
-                <div class="cert-icon">✅</div>
-                <h4>Freelance vérifié</h4>
-                <p>Profil Malt actif</p>
-            </div>
-            <div class="cert-card fade-up">
-                <div class="cert-icon">💻</div>
-                <h4>Développeur certifié</h4>
-                <p>JavaScript · React · Node.js</p>
-            </div>
-            <div class="cert-card fade-up">
-                <div class="cert-icon">🚀</div>
-                <h4>Livraison rapide</h4>
-                <p>Réponse < 24h</p>
-            </div>
-        </div>
-    </div>
+  </div>
 </section>
 
 <!-- COMPÉTENCES -->
-<section id="skills" class="section section-alt">
-    <div class="container">
-        <div class="section-header fade-up">
-            <div class="section-label">Compétences</div>
-            <h2 class="section-title">Les outils que j'utilise au quotidien.</h2>
-        </div>
-        <div class="skills-grid">
-            <div class="skill-card fade-up">
-                <h3><span class="skill-icon">F</span> Frontend</h3>
-                <ul class="skill-list">
-                    <li>HTML5 / CSS3</li>
-                    <li>JavaScript (ES6+)</li>
-                    <li>React.js</li>
-                    <li>Tailwind CSS</li>
-                </ul>
-            </div>
-            <div class="skill-card fade-up">
-                <h3><span class="skill-icon">B</span> Backend</h3>
-                <ul class="skill-list">
-                    <li>Node.js</li>
-                    <li>Express.js</li>
-                    <li>MongoDB</li>
-                    <li>API REST</li>
-                </ul>
-            </div>
-            <div class="skill-card fade-up">
-                <h3><span class="skill-icon">T</span> Outils</h3>
-                <ul class="skill-list">
-                    <li>Git / GitHub</li>
-                    <li>VS Code</li>
-                    <li>Postman</li>
-                    <li>Docker (bases)</li>
-                </ul>
-            </div>
-        </div>
-        <!-- LOGOS TECH -->
-        <div class="tech-logos fade-up">
-            <span class="tech-logo"><i class="bi bi-filetype-js"></i> JavaScript</span>
-            <span class="tech-logo"><i class="bi bi-filetype-jsx"></i> React</span>
-            <span class="tech-logo"><i class="bi bi-server"></i> Node.js</span>
-            <span class="tech-logo"><i class="bi bi-database"></i> MongoDB</span>
-            <span class="tech-logo"><i class="bi bi-wind"></i> Tailwind</span>
-            <span class="tech-logo"><i class="bi bi-git"></i> Git</span>
-        </div>
+<section id="competences" class="py-20 md:py-28 bg-zinc-50 dark:bg-zinc-900/40">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="reveal max-w-2xl mb-12">
+      <p class="eyebrow">Compétences</p>
+      <h2 class="section-title">Ma boîte à outils</h2>
+      <p class="mt-4 text-zinc-600 dark:text-zinc-400">Les technologies que j'utilise au quotidien pour construire des produits robustes.</p>
     </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5" id="skillsGrid"></div>
+    <div class="reveal mt-12 card p-6 md:p-8">
+      <h3 class="font-display font-semibold text-lg mb-6">Niveau de maîtrise</h3>
+      <div class="grid md:grid-cols-2 gap-x-10 gap-y-5" id="skillBars"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJETS / GALERIE -->
+<section id="projets" class="py-20 md:py-28">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="reveal flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+      <div>
+        <p class="eyebrow">Projets</p>
+        <h2 class="section-title">Réalisations récentes</h2>
+        <p class="mt-3 text-zinc-600 dark:text-zinc-400 text-sm">Cliquez sur un projet pour ouvrir la galerie.</p>
+      </div>
+      <div id="filters" class="flex flex-wrap gap-2">
+        <button data-filter="all" class="filter-btn active">Tous</button>
+        <button data-filter="web" class="filter-btn">Web</button>
+        <button data-filter="mobile" class="filter-btn">Mobile</button>
+      </div>
+    </div>
+    <div id="projectsGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </div>
+</section>
+
+<!-- TÉMOIGNAGES -->
+<section id="temoignages" class="py-20 md:py-28 bg-zinc-50 dark:bg-zinc-900/40">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="reveal max-w-2xl mb-12">
+      <p class="eyebrow">Témoignages</p>
+      <h2 class="section-title">Ce que disent mes clients</h2>
+    </div>
+    <div id="testimonialsGrid" class="grid md:grid-cols-3 gap-5"></div>
+  </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="section">
-    <div class="container">
-        <div class="section-header fade-up">
-            <div class="section-label">Contact</div>
-            <h2 class="section-title">Travaillons ensemble.</h2>
-        </div>
-        <div class="contact-layout">
-            <div class="contact-info fade-up">
-                <p>
-                    Une idée de projet, une opportunité ou simplement envie d'échanger ?
-                    Remplissez le formulaire ou contactez-moi directement.
-                </p>
-                <div class="contact-links">
-                    <!-- WHATSAPP -->
-                    <a href="https://wa.me/2290148220001?text=Bonjour%20Mardoche%2C%20je%20vous%20contacte%20depuis%20votre%20portfolio.%20J%27aimerais%20discuter%20d%27un%20projet%20web." target="_blank" rel="noopener" class="contact-link">
-                        <i class="bi bi-whatsapp"></i>
-                        WhatsApp · +229 01 48 22 00 01
-                    </a>
-                    <!-- LINKEDIN -->
-                    <a href="https://www.linkedin.com/search/results/all/?keywords=Mardoch%C3%A9e%20CAKPO" target="_blank" rel="noopener" class="contact-link">
-                        <i class="bi bi-linkedin"></i>
-                        LinkedIn · Mardochée CAKPO
-                    </a>
-                    <!-- MALT (CORRIGÉ) -->
-                    <a href="https://en.malt.fr/profile/mardocheecakpo" target="_blank" rel="noopener" class="contact-link">
-                        <i class="bi bi-briefcase"></i>
-                        Malt · Mardochée Cakpo
-                    </a>
-                    <!-- GITHUB -->
-                    <a href="https://github.com/mardochecakpodev-bot" target="_blank" rel="noopener" class="contact-link">
-                        <i class="bi bi-github"></i>
-                        github.com/mardochecakpodev-bot
-                    </a>
-                    <!-- EMAIL -->
-                    <a href="mailto:mardochecakpodev@gmail.com" class="contact-link">
-                        <i class="bi bi-envelope"></i>
-                        mardochecakpodev@gmail.com
-                    </a>
-                </div>
-            </div>
-            <form action="https://formsubmit.co/mardochecakpodev@gmail.com" method="POST" class="contact-form fade-up">
-                <input type="hidden" name="_subject" value="Nouveau message depuis votre portfolio">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_template" value="table">
-                <input type="text" name="_honey" style="display:none">
-                <input type="hidden" name="_autoresponse" value="Merci pour votre message ! Je vous répondrai dans les plus brefs délais.">
-
-                <div class="form-group">
-                    <label for="name">Nom</label>
-                    <input type="text" id="name" name="name" placeholder="Votre nom" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="votre@email.com" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" rows="4" placeholder="Parlez-moi de votre projet..." required></textarea>
-                </div>
-                <button type="submit" class="btn-submit">Envoyer le message</button>
-            </form>
-        </div>
+<section id="contact" class="py-20 md:py-28">
+  <div class="max-w-6xl mx-auto px-5 grid lg:grid-cols-[1fr_1.4fr] gap-12">
+    <div class="reveal">
+      <p class="eyebrow">Contact</p>
+      <h2 class="section-title">Un projet en tête ? Parlons-en.</h2>
+      <p class="mt-4 text-zinc-600 dark:text-zinc-400 leading-relaxed">Envoyez-moi un message et je vous répondrai sous 24 heures.</p>
+      <ul class="mt-8 space-y-3">
+        <li>
+          <a href="https://wa.me/2290148220001?text=Bonjour%20Mardoche%2C%20je%20vous%20contacte%20depuis%20votre%20portfolio." target="_blank" rel="noopener" class="flex items-center gap-4 p-3 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-900 transition group">
+            <span class="contact-icon" style="background:#dcfce7;color:#16a34a">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.09 3.2 5.07 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35zM12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88 2.64 0 5.13 1.03 7 2.9a9.83 9.83 0 0 1 2.9 7c0 5.45-4.44 9.87-9.9 9.87zm8.42-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .17 5.33.17 11.88c0 2.09.55 4.13 1.59 5.93L.07 24l6.34-1.66a11.87 11.87 0 0 0 5.64 1.44h.01c6.55 0 11.88-5.33 11.88-11.88 0-3.17-1.24-6.15-3.47-8.41z"/></svg>
+            </span>
+            <div class="min-w-0"><p class="text-xs text-zinc-500">WhatsApp</p><p class="font-medium truncate">+229 01 48 22 00 01</p></div>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 ml-auto text-zinc-400 group-hover:text-indigo-600 transition"></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/search/results/all/?keywords=Mardoch%C3%A9e%20CAKPO" target="_blank" rel="noopener" class="flex items-center gap-4 p-3 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-900 transition group">
+            <span class="contact-icon" style="background:#dbeafe;color:#0A66C2">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+            </span>
+            <div class="min-w-0"><p class="text-xs text-zinc-500">LinkedIn</p><p class="font-medium truncate">Mardochée CAKPO</p></div>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 ml-auto text-zinc-400 group-hover:text-indigo-600 transition"></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://en.malt.fr/profile/mardocheecakpo" target="_blank" rel="noopener" class="flex items-center gap-4 p-3 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-900 transition group">
+            <span class="contact-icon" style="background:#fee2e2;color:#FC5757"><i data-lucide="briefcase" class="w-5 h-5"></i></span>
+            <div class="min-w-0"><p class="text-xs text-zinc-500">Malt</p><p class="font-medium truncate">Mardochée Cakpo</p></div>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 ml-auto text-zinc-400 group-hover:text-indigo-600 transition"></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/mardochecakpodev-bot" target="_blank" rel="noopener" class="flex items-center gap-4 p-3 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-900 transition group">
+            <span class="contact-icon" style="background:#f4f4f5;color:#18181b">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8 0 3.2.9.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.1.9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"/></svg>
+            </span>
+            <div class="min-w-0"><p class="text-xs text-zinc-500">GitHub</p><p class="font-medium truncate">mardochecakpodev-bot</p></div>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 ml-auto text-zinc-400 group-hover:text-indigo-600 transition"></i>
+          </a>
+        </li>
+        <li>
+          <a href="mailto:mardochecakpodev@gmail.com" class="flex items-center gap-4 p-3 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-900 transition group">
+            <span class="contact-icon" style="background:#fef3c7;color:#d97706"><i data-lucide="mail" class="w-5 h-5"></i></span>
+            <div class="min-w-0"><p class="text-xs text-zinc-500">Email</p><p class="font-medium truncate">mardochecakpodev@gmail.com</p></div>
+            <i data-lucide="arrow-up-right" class="w-4 h-4 ml-auto text-zinc-400 group-hover:text-indigo-600 transition"></i>
+          </a>
+        </li>
+      </ul>
     </div>
+    <form id="contactForm" action="https://formsubmit.co/mardochecakpodev@gmail.com" method="POST" class="reveal card p-6 md:p-8 space-y-5" novalidate>
+      <input type="hidden" name="_subject" value="Nouveau message depuis votre portfolio">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="text" name="_honey" style="display:none">
+      <input type="hidden" name="_autoresponse" value="Merci pour votre message ! Je vous répondrai dans les plus brefs délais.">
+      <div class="grid sm:grid-cols-2 gap-5">
+        <label class="block"><span class="label">Nom complet</span><input name="name" required maxlength="100" class="input" placeholder="Jean Dupont"></label>
+        <label class="block"><span class="label">Email</span><input name="email" type="email" required maxlength="200" class="input" placeholder="jean@exemple.com"></label>
+      </div>
+      <label class="block"><span class="label">Sujet</span>
+        <select name="subject" class="input">
+          <option>Site web</option><option>Application mobile</option><option>Application web</option><option>Autre</option>
+        </select>
+      </label>
+      <label class="block"><span class="label">Message</span><textarea name="message" required rows="5" maxlength="5000" class="input resize-none" placeholder="Parlez-moi de votre projet..."></textarea></label>
+      <p id="formStatus" class="hidden text-sm rounded-lg px-4 py-3"></p>
+      <button type="submit" id="submitBtn" class="btn-primary w-full justify-center">
+        <span>Envoyer le message</span><i data-lucide="send" class="w-4 h-4"></i>
+      </button>
+    </form>
+  </div>
 </section>
 
+</main>
+
 <!-- FOOTER -->
-<footer class="footer">
-    <div class="container">
-        <p>&copy; 2026 Mardoche Cakpo. Tous droits réservés.</p>
-        <div class="footer-links">
-            <a href="https://github.com/mardochecakpodev-bot" target="_blank" rel="noopener">GitHub</a>
-            <a href="https://en.malt.fr/profile/mardocheecakpo" target="_blank" rel="noopener">Malt</a>
-            <a href="mailto:mardochecakpodev@gmail.com">Email</a>
-        </div>
-    </div>
+<footer class="border-t border-zinc-100 dark:border-zinc-900 py-8">
+  <div class="max-w-6xl mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-zinc-500">
+    <p>© <span id="year"></span> Mardoche Cakpo. Tous droits réservés.</p>
+    <a href="#accueil" class="inline-flex items-center gap-1 hover:text-zinc-900 dark:hover:text-white transition">Retour en haut <i data-lucide="arrow-up" class="w-4 h-4"></i></a>
+  </div>
 </footer>
 
+<!-- ============ LIGHTBOX / GALERIE ============ -->
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-labelledby="lbTitle">
+  <button id="lbClose" class="lightbox-close" aria-label="Fermer">
+    <i data-lucide="x" class="w-5 h-5"></i>
+  </button>
+  <button id="lbPrev" class="lightbox-nav prev" aria-label="Précédent">
+    <i data-lucide="chevron-left" class="w-6 h-6"></i>
+  </button>
+  <button id="lbNext" class="lightbox-nav next" aria-label="Suivant">
+    <i data-lucide="chevron-right" class="w-6 h-6"></i>
+  </button>
+  <div class="lightbox-content" id="lbContent">
+    <div class="lightbox-image-wrap">
+      <img id="lbImage" class="lightbox-image" src="" alt="">
+    </div>
+    <div class="lightbox-info">
+      <h3 id="lbTitle" class="lightbox-title"></h3>
+      <p id="lbYear" class="lightbox-year"></p>
+      <p id="lbDesc" class="lightbox-desc"></p>
+      <div id="lbTags" class="lightbox-tags"></div>
+      <a id="lbLink" class="lightbox-link" href="#" target="_blank" rel="noopener">
+        Voir le projet <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+      </a>
+    </div>
+  </div>
+  <div id="lbCounter" class="lightbox-counter">1 / 8</div>
+</div>
+
+<!-- ============ JAVASCRIPT ============ -->
 <script>
-/* LOADER */
+/* ---------- LOADER ---------- */
 window.addEventListener('load', () => {
-    const loader = document.getElementById('loader');
-    setTimeout(() => loader.classList.add('hidden'), 1200);
+  const loader = document.getElementById('loader');
+  setTimeout(() => loader.classList.add('hidden'), 900);
 });
 
-/* ANIMATIONS AU SCROLL */
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
+/* ---------- THÈME ---------- */
+const themeToggle = document.getElementById('themeToggle');
+themeToggle.addEventListener('click', () => {
+  const isDark = document.documentElement.classList.toggle('dark');
+  try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch(e) {}
+  lucide.createIcons();
+});
+
+/* ---------- MENU ---------- */
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+/* ---------- NAV SCROLL ---------- */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 20) nav.classList.add('nav-scrolled');
+  else nav.classList.remove('nav-scrolled');
+});
+
+/* ---------- ANNÉE ---------- */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ---------- REVEAL ---------- */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
 }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+/* ---------- COMPTEURS ---------- */
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    const target = parseInt(el.dataset.count || '0', 10);
+    const start = performance.now();
+    const step = (now) => {
+      const p = Math.min((now - start) / 1400, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(target * eased) + '+';
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = target + '+';
+    };
+    requestAnimationFrame(step);
+    counterObserver.unobserve(el);
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
 
-/* MENU MOBILE */
-const menuToggle = document.querySelector('.menu-toggle');
-const navLinks = document.querySelector('.nav-links');
-
-menuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
-
-navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => navLinks.classList.remove('active'));
+/* ---------- COMPÉTENCES ---------- */
+const skillGroups = [
+  { title: 'Frontend', icon: 'layout', items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'] },
+  { title: 'Backend', icon: 'server', items: ['Node.js', 'Express', 'MongoDB', 'PostgreSQL'] },
+  { title: 'Mobile', icon: 'smartphone', items: ['React Native', 'Flutter', 'Expo', 'Firebase'] },
+  { title: 'Outils', icon: 'wrench', items: ['Git / GitHub', 'Docker', 'Postman', 'VS Code'] }
+];
+const skillsGrid = document.getElementById('skillsGrid');
+skillGroups.forEach(g => {
+  const div = document.createElement('div');
+  div.className = 'reveal card p-6';
+  div.innerHTML = `
+    <div class="flex items-center gap-3 mb-4">
+      <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+        <i data-lucide="${g.icon}" class="w-5 h-5"></i>
+      </div>
+      <h3 class="font-display font-semibold">${g.title}</h3>
+    </div>
+    <ul class="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+      ${g.items.map(i => `<li class="flex items-center gap-2"><span class="w-1 h-1 rounded-full bg-zinc-400"></span>${i}</li>`).join('')}
+    </ul>`;
+  skillsGrid.appendChild(div);
 });
+document.querySelectorAll('#skillsGrid .reveal').forEach(el => revealObserver.observe(el));
+
+/* ---------- BARRES ---------- */
+const skillBarsData = [
+  { name: 'JavaScript / TypeScript', level: 92 },
+  { name: 'React / Next.js', level: 90 },
+  { name: 'Node.js / Express', level: 88 },
+  { name: 'React Native / Flutter', level: 82 },
+  { name: 'UI / UX Design', level: 78 },
+  { name: 'DevOps (Docker, CI/CD)', level: 72 }
+];
+const skillBars = document.getElementById('skillBars');
+skillBarsData.forEach(s => {
+  const el = document.createElement('div');
+  el.innerHTML = `
+    <div class="flex justify-between text-sm mb-2">
+      <span class="font-medium text-zinc-700 dark:text-zinc-300">${s.name}</span>
+      <span class="text-zinc-500">${s.level}%</span>
+    </div>
+    <div class="h-2 rounded-full bg-zinc-200 dark:bg-zinc-800 overflow-hidden">
+      <div class="bar-fill h-full rounded-full bg-gradient-to-r from-indigo-500 to-indigo-600 dark:from-indigo-400 dark:to-indigo-500" data-target="${s.level}"></div>
+    </div>`;
+  skillBars.appendChild(el);
+});
+const barObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.querySelectorAll('.bar-fill').forEach(bar => bar.style.width = bar.dataset.target + '%');
+    barObserver.unobserve(entry.target);
+  });
+}, { threshold: 0.3 });
+barObserver.observe(skillBars);
+
+/* ---------- PROJETS AVEC IMAGES ---------- */
+const projects = [
+  {
+    title: 'Gold Rush',
+    category: 'web',
+    year: '2026',
+    desc: 'Plateforme de suivi de cryptomonnaies en temps réel avec graphiques interactifs, alertes de prix personnalisées et gestion de portefeuille multi-actifs. Architecture WebSocket pour des mises à jour instantanées.',
+    tags: ['React', 'Node.js', 'WebSocket', 'PostgreSQL'],
+    image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=1200&h=800&fit=crop&auto=format&q=80',
+    link: 'https://github.com/mardochecakpodev-bot'
+  },
+  {
+    title: 'ShopWave',
+    category: 'web',
+    year: '2025',
+    desc: 'E-commerce moderne avec paiement Stripe, gestion de stock en temps réel, back-office administrateur complet et plus de 500 produits gérés. Interface optimisée pour la conversion.',
+    tags: ['Next.js', 'Stripe', 'Prisma', 'Tailwind'],
+    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&h=800&fit=crop&auto=format&q=80',
+    link: '#'
+  },
+  {
+    title: 'TaskFlow',
+    category: 'web',
+    year: '2025',
+    desc: 'Application de gestion de tâches en équipe façon Kanban avec collaboration temps réel, notifications push et suivi d\'activité détaillé. Drag & drop fluide et responsive.',
+    tags: ['React', 'TypeScript', 'Socket.io', 'MongoDB'],
+    image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=1200&h=800&fit=crop&auto=format&q=80',
+    link: '#'
+  },
+  {
+    title: 'Chatterly',
+    category: 'web',
+    year: '2025',
+    desc: 'Messagerie instantanée avec groupes, partage de médias, statut en ligne et chiffrement des messages. Architecture temps réel scalable supportant des milliers de connexions simultanées.',
+    tags: ['React', 'Firebase', 'WebSocket', 'Tailwind'],
+    image: 'https://images.unsplash.com/photo-1611606063065-ee7946f0787a?w=1200&h=800&fit=crop&auto=format&q=80',
+    link: '#'
+  },
+  {
+    title: 'InsightBoard',
+    category: 'web',
+    year: '2026',
+    desc: 'Tableau de bord analytique en temps réel pour le suivi des ventes, du comportement utilisateur et des KPIs métier. Graphiques D3.js interactifs et exports PDF.',
+    tags: ['Vue.js', 'D3.js', 'Node.js', 'MySQL'],
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=800&fit=crop&auto=format&q=80',
+    link: '#'
+  },
+  {
+    title: 'StockAPI',
+    category: 'web',
+    year: '2025',
+    desc: 'API REST sécurisée pour la gestion de stock et de commandes avec authentification JWT, rate limiting, documentation Swagger et tests automatisés à 95% de couverture.',
+    tags: ['Express', 'MongoDB', 'JWT', 'Swagger'],
+    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=800&fit=crop&auto=format&q=80',
+    link: '#'
+  },
+  {
+    title: 'FitTrack',
+    category: 'mobile',
+    year: '2025',
+    desc: 'Application mobile de suivi sportif avec programmes personnalisés, statistiques avancées, synchronisation HealthKit/Google Fit et mode hors ligne complet.',
+    tags: ['React Native', 'Expo', 'Firebase', 'Redux'],
+    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200&h=800&fit=crop&auto=format&q=80',
+    link: '#'
+  },
+  {
+    title: 'DeliveryGo',
+    category: 'mobile',
+    year: '2024',
+    desc: 'Application de livraison à domicile avec suivi GPS en temps réel, paiement Stripe intégré, notifications push et interface livreur dédiée. iOS et Android.',
+    tags: ['Flutter', 'Dart', 'Firebase', 'Stripe'],
+    image: 'https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=1200&h=800&fit=crop&auto=format&q=80',
+    link: '#'
+  }
+];
+
+const projectsGrid = document.getElementById('projectsGrid');
+
+function renderProjects(filter = 'all') {
+  projectsGrid.innerHTML = '';
+  const filtered = filter === 'all' ? projects : projects.filter(p => p.category === filter);
+  filtered.forEach((p, idx) => {
+    const realIdx = projects.indexOf(p);
+    const card = document.createElement('article');
+    card.className = 'reveal project-card card overflow-hidden flex flex-col cursor-pointer';
+    card.dataset.index = realIdx;
+    card.innerHTML = `
+      <div class="project-visual aspect-[6/3.4] img-skeleton">
+        <img
+          src="${p.image}"
+          alt="Aperçu du projet ${p.title}"
+          class="project-image"
+          loading="lazy"
+          onload="this.parentElement.classList.remove('img-skeleton')"
+          onerror="this.style.display='none'; this.parentElement.classList.remove('img-skeleton');">
+        <div class="project-overlay">
+          <span class="project-overlay-btn">
+            <i data-lucide="maximize-2" class="w-4 h-4"></i>
+            Voir la galerie
+          </span>
+        </div>
+        <span class="absolute top-3 right-3 text-[10px] font-semibold px-2 py-1 rounded-full bg-black/50 backdrop-blur text-white z-10">${p.year}</span>
+      </div>
+      <div class="p-5 flex-1 flex flex-col">
+        <h3 class="font-display font-semibold text-lg mb-2">${p.title}</h3>
+        <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4 flex-1 line-clamp-3">${p.desc}</p>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          ${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+        </div>
+        <div class="inline-flex items-center gap-1.5 text-sm font-semibold text-zinc-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition group">
+          Voir le projet
+          <i data-lucide="arrow-up-right" class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+        </div>
+      </div>
+    `;
+    card.addEventListener('click', () => openLightbox(realIdx));
+    projectsGrid.appendChild(card);
+    revealObserver.observe(card);
+  });
+  lucide.createIcons();
+}
+
+renderProjects();
+
+/* ---------- FILTRES ---------- */
+document.querySelectorAll('#filters .filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#filters .filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderProjects(btn.dataset.filter);
+  });
+});
+
+/* ---------- LIGHTBOX ---------- */
+const lightbox = document.getElementById('lightbox');
+const lbImage = document.getElementById('lbImage');
+const lbTitle = document.getElementById('lbTitle');
+const lbYear = document.getElementById('lbYear');
+const lbDesc = document.getElementById('lbDesc');
+const lbTags = document.getElementById('lbTags');
+const lbLink = document.getElementById('lbLink');
+const lbCounter = document.getElementById('lbCounter');
+let currentIndex = 0;
+let currentFilterList = projects;
+
+function openLightbox(index) {
+  currentFilterList = projects;
+  currentIndex = index;
+  updateLightbox();
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  lucide.createIcons();
+}
+
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function updateLightbox() {
+  const p = currentFilterList[currentIndex];
+  lbImage.src = p.image;
+  lbImage.alt = p.title;
+  lbTitle.textContent = p.title;
+  lbYear.innerHTML = `<i data-lucide="calendar" class="w-3 h-3"></i> ${p.year} · ${p.category === 'web' ? 'Application Web' : 'Application Mobile'}`;
+  lbDesc.textContent = p.desc;
+  lbTags.innerHTML = p.tags.map(t => `<span>${t}</span>`).join('');
+  lbLink.href = p.link;
+  lbCounter.textContent = `${currentIndex + 1} / ${currentFilterList.length}`;
+  lucide.createIcons();
+}
+
+function nextProject() {
+  currentIndex = (currentIndex + 1) % currentFilterList.length;
+  updateLightbox();
+}
+
+function prevProject() {
+  currentIndex = (currentIndex - 1 + currentFilterList.length) % currentFilterList.length;
+  updateLightbox();
+}
+
+document.getElementById('lbClose').addEventListener('click', closeLightbox);
+document.getElementById('lbNext').addEventListener('click', nextProject);
+document.getElementById('lbPrev').addEventListener('click', prevProject);
+lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+
+document.addEventListener('keydown', (e) => {
+  if (!lightbox.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowRight') nextProject();
+  if (e.key === 'ArrowLeft') prevProject();
+});
+
+/* Swipe tactile */
+let touchStartX = 0;
+lightbox.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+lightbox.addEventListener('touchend', (e) => {
+  const diff = e.changedTouches[0].screenX - touchStartX;
+  if (Math.abs(diff) > 60) {
+    if (diff < 0) nextProject();
+    else prevProject();
+  }
+}, { passive: true });
+
+/* ---------- TÉMOIGNAGES ---------- */
+const testimonials = [
+  { text: "Mardoche a livré notre plateforme e-commerce en avance sur le planning. Le code est propre, documenté, et il a su s'adapter à nos contraintes métier.", name: 'Sarah K.', role: 'Fondatrice · Boutique en ligne', initials: 'SK' },
+  { text: "Très bon communicant, réactif et force de proposition. Il a repris une API existante et l'a optimisée de manière significative.", name: 'Marc D.', role: 'CTO · Startup SaaS', initials: 'MD' },
+  { text: "J'ai fait appel à Mardoche pour un tableau de bord sur mesure. Le résultat dépasse mes attentes : rapide, intuitif et visuellement soigné.", name: 'Léa M.', role: 'Product Manager · Agence digitale', initials: 'LM' }
+];
+const testimonialsGrid = document.getElementById('testimonialsGrid');
+testimonials.forEach(t => {
+  const card = document.createElement('div');
+  card.className = 'reveal card p-6 flex flex-col';
+  card.innerHTML = `
+    <div class="flex gap-0.5 mb-4 text-amber-500">
+      ${Array(5).fill('<i data-lucide="star" class="w-4 h-4 fill-current"></i>').join('')}
+    </div>
+    <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed italic flex-1 mb-5">"${t.text}"</p>
+    <div class="flex items-center gap-3 border-t border-zinc-100 dark:border-zinc-800 pt-4">
+      <div class="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center font-display font-bold text-sm">${t.initials}</div>
+      <div><p class="text-sm font-semibold">${t.name}</p><p class="text-xs text-zinc-500">${t.role}</p></div>
+    </div>`;
+  testimonialsGrid.appendChild(card);
+  revealObserver.observe(card);
+});
+
+/* ---------- FORMULAIRE ---------- */
+const contactForm = document.getElementById('contactForm');
+const formStatus = document.getElementById('formStatus');
+const submitBtn = document.getElementById('submitBtn');
+
+contactForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  formStatus.classList.add('hidden');
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<span>Envoi en cours...</span>';
+  try {
+    const res = await fetch(contactForm.action, {
+      method: 'POST',
+      body: new FormData(contactForm),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      formStatus.classList.remove('hidden');
+      formStatus.className = 'text-sm rounded-lg px-4 py-3 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/30';
+      formStatus.textContent = '✓ Merci ! Votre message a bien été envoyé. Je vous répondrai sous 24h.';
+      contactForm.reset();
+    } else { throw new Error('Erreur'); }
+  } catch (err) {
+    contactForm.submit();
+    return;
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = '<span>Envoyer le message</span><i data-lucide="send" class="w-4 h-4"></i>';
+    lucide.createIcons();
+  }
+});
+
+/* ---------- INIT ---------- */
+lucide.createIcons();
 </script>
 
 </body>
