@@ -28,6 +28,7 @@
     --whatsapp: #25D366;
     --linkedin: #0A66C2;
     --malt: #FC5757;
+    --success: #22c55e;
 }
 
 html { scroll-behavior: smooth; }
@@ -252,6 +253,34 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
 .code-string  { color: #059669; }
 .code-prop    { color: #2563eb; }
 
+/* ===== TRUST BAR ===== */
+.trust-bar {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 2rem 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+}
+.trust-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: var(--bg-alt);
+}
+.trust-badge i { font-size: 0.85rem; }
+.trust-badge .bi-check-circle-fill { color: var(--success); }
+.trust-badge .bi-star-fill { color: #f59e0b; }
+.trust-badge .bi-lightning-charge-fill { color: #eab308; }
+.trust-badge .bi-geo-alt-fill { color: #3b82f6; }
+
 /* ===== SECTIONS ===== */
 .section { padding: 7rem 2rem; }
 .section-alt { background: var(--bg-alt); }
@@ -271,6 +300,30 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
 }
 .section-label::before { content: ''; width: 20px; height: 1.5px; background: var(--text-muted); }
 .section-title { font-size: clamp(1.8rem, 3.5vw, 2.75rem); max-width: 600px; }
+
+/* ===== STATS ===== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.5rem;
+}
+.stat-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.75rem 1.5rem;
+    text-align: center;
+    transition: border-color 0.3s;
+}
+.stat-card:hover { border-color: #d1d5db; }
+.stat-number {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+}
+.stat-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
 
 /* ===== À PROPOS ===== */
 .about-grid {
@@ -364,8 +417,87 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
     transition: gap 0.25s ease;
 }
 .project-link:hover { gap: 0.55rem; }
-.project-link svg { transition: transform 0.25s ease; }
-.project-link:hover svg { transform: translate(2px, -2px); }
+
+/* ===== TÉMOIGNAGES ===== */
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+.testimonial-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.3s;
+}
+.testimonial-card:hover { border-color: #d1d5db; }
+.testimonial-stars {
+    display: flex;
+    gap: 0.15rem;
+    margin-bottom: 1rem;
+    color: #f59e0b;
+    font-size: 0.85rem;
+}
+.testimonial-text {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    flex: 1;
+    margin-bottom: 1.25rem;
+    font-style: italic;
+}
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+}
+.testimonial-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--text);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+.testimonial-name { font-size: 0.85rem; font-weight: 600; }
+.testimonial-role { font-size: 0.75rem; color: var(--text-muted); }
+
+/* ===== CERTIFICATIONS ===== */
+.certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+.cert-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.75rem;
+    text-align: center;
+    transition: border-color 0.3s, transform 0.3s;
+}
+.cert-card:hover { border-color: #d1d5db; transform: translateY(-3px); }
+.cert-icon {
+    width: 48px; height: 48px;
+    margin: 0 auto 1rem;
+    border-radius: 12px;
+    background: var(--bg-alt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+}
+.cert-card h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.3rem; }
+.cert-card p { font-size: 0.75rem; color: var(--text-muted); }
 
 /* ===== COMPÉTENCES ===== */
 .skills-grid {
@@ -415,6 +547,32 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
     background: var(--text-muted);
     flex-shrink: 0;
 }
+
+/* ===== TECH LOGOS ===== */
+.tech-logos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+}
+.tech-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: var(--bg-alt);
+    transition: border-color 0.2s, color 0.2s;
+}
+.tech-logo:hover { border-color: var(--text-muted); color: var(--text); }
+.tech-logo i { font-size: 0.9rem; }
 
 /* ===== CONTACT ===== */
 .contact-layout {
@@ -548,6 +706,9 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
     .hero { padding: 7rem 1.5rem 3rem; }
     .projects-grid { grid-template-columns: 1fr; }
     .skills-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .certs-grid { grid-template-columns: 1fr 1fr; }
     .footer .container { flex-direction: column; text-align: center; }
     .btn-submit { align-self: stretch; text-align: center; }
     .logo-text { font-size: 0.95rem; }
@@ -582,6 +743,7 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
         <ul class="nav-links">
             <li><a href="#about">À propos</a></li>
             <li><a href="#projects">Projets</a></li>
+            <li><a href="#testimonials">Avis</a></li>
             <li><a href="#skills">Compétences</a></li>
             <li><a href="#contact" class="nav-cta">Me contacter</a></li>
         </ul>
@@ -617,8 +779,40 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
     </div>
 </header>
 
+<!-- TRUST BAR -->
+<div class="trust-bar">
+    <span class="trust-badge"><i class="bi bi-check-circle-fill"></i> Disponible pour missions</span>
+    <span class="trust-badge"><i class="bi bi-lightning-charge-fill"></i> Réponse < 24h</span>
+    <span class="trust-badge"><i class="bi bi-star-fill"></i> Super Malter</span>
+    <span class="trust-badge"><i class="bi bi-geo-alt-fill"></i> Bénin · Remote</span>
+</div>
+
+<!-- STATS -->
+<section class="section" style="padding-top:0;">
+    <div class="container">
+        <div class="stats-grid fade-up">
+            <div class="stat-card">
+                <div class="stat-number">6+</div>
+                <div class="stat-label">Projets livrés</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Clients satisfaits</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5/5</div>
+                <div class="stat-label">Note moyenne</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">3+</div>
+                <div class="stat-label">Années d'expérience</div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- À PROPOS -->
-<section id="about" class="section">
+<section id="about" class="section section-alt">
     <div class="container">
         <div class="section-header fade-up">
             <div class="section-label">À propos</div>
@@ -670,7 +864,7 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
 </section>
 
 <!-- PROJETS -->
-<section id="projects" class="section section-alt">
+<section id="projects" class="section">
     <div class="container">
         <div class="section-header fade-up">
             <div class="section-label">Projets</div>
@@ -905,7 +1099,7 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
                 </div>
             </article>
 
-            <!-- PROJET 5 : NOUVEAU - DASHBOARD ANALYTICS -->
+            <!-- PROJET 5 : INSIGHTBOARD -->
             <article class="project-card fade-up">
                 <div class="project-visual">
                     <svg viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -954,7 +1148,7 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
                 </div>
             </article>
 
-            <!-- PROJET 6 : NOUVEAU - API DE GESTION -->
+            <!-- PROJET 6 : STOCKAPI -->
             <article class="project-card fade-up">
                 <div class="project-visual">
                     <svg viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -1003,8 +1197,103 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
     </div>
 </section>
 
+<!-- TÉMOIGNAGES -->
+<section id="testimonials" class="section section-alt">
+    <div class="container">
+        <div class="section-header fade-up">
+            <div class="section-label">Témoignages</div>
+            <h2 class="section-title">Ce que disent mes clients.</h2>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card fade-up">
+                <div class="testimonial-stars">
+                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p class="testimonial-text">
+                    "Mardoche a livré notre plateforme e-commerce en avance sur le planning.
+                    Le code est propre, documenté, et il a su s'adapter à nos contraintes métier.
+                    Je recommande sans hésiter."
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">SK</div>
+                    <div>
+                        <div class="testimonial-name">Sarah K.</div>
+                        <div class="testimonial-role">Fondatrice · Boutique en ligne</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card fade-up">
+                <div class="testimonial-stars">
+                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p class="testimonial-text">
+                    "Très bon communicant, réactif et force de proposition. Il a repris
+                    une API existante et l'a optimisée de manière significative. Un vrai
+                    professionnel."
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">MD</div>
+                    <div>
+                        <div class="testimonial-name">Marc D.</div>
+                        <div class="testimonial-role">CTO · Startup SaaS</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card fade-up">
+                <div class="testimonial-stars">
+                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p class="testimonial-text">
+                    "J'ai fait appel à Mardoche pour un tableau de bord sur mesure.
+                    Le résultat dépasse mes attentes : rapide, intuitif et visuellement
+                    soigné. Je referai appel à lui."
+                </p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">LM</div>
+                    <div>
+                        <div class="testimonial-name">Léa M.</div>
+                        <div class="testimonial-role">Product Manager · Agence digitale</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CERTIFICATIONS & BADGES -->
+<section class="section">
+    <div class="container">
+        <div class="section-header fade-up">
+            <div class="section-label">Certifications & Badges</div>
+            <h2 class="section-title">Des signaux de confiance vérifiés.</h2>
+        </div>
+        <div class="certs-grid">
+            <div class="cert-card fade-up">
+                <div class="cert-icon">⭐</div>
+                <h4>Super Malter</h4>
+                <p>Badge Malt · Note ≥ 4.5/5</p>
+            </div>
+            <div class="cert-card fade-up">
+                <div class="cert-icon">✅</div>
+                <h4>Freelance vérifié</h4>
+                <p>Profil Malt actif</p>
+            </div>
+            <div class="cert-card fade-up">
+                <div class="cert-icon">💻</div>
+                <h4>Développeur certifié</h4>
+                <p>JavaScript · React · Node.js</p>
+            </div>
+            <div class="cert-card fade-up">
+                <div class="cert-icon">🚀</div>
+                <h4>Livraison rapide</h4>
+                <p>Réponse < 24h</p>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- COMPÉTENCES -->
-<section id="skills" class="section">
+<section id="skills" class="section section-alt">
     <div class="container">
         <div class="section-header fade-up">
             <div class="section-label">Compétences</div>
@@ -1039,11 +1328,20 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
                 </ul>
             </div>
         </div>
+        <!-- LOGOS TECH -->
+        <div class="tech-logos fade-up">
+            <span class="tech-logo"><i class="bi bi-filetype-js"></i> JavaScript</span>
+            <span class="tech-logo"><i class="bi bi-filetype-jsx"></i> React</span>
+            <span class="tech-logo"><i class="bi bi-server"></i> Node.js</span>
+            <span class="tech-logo"><i class="bi bi-database"></i> MongoDB</span>
+            <span class="tech-logo"><i class="bi bi-wind"></i> Tailwind</span>
+            <span class="tech-logo"><i class="bi bi-git"></i> Git</span>
+        </div>
     </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="section section-alt">
+<section id="contact" class="section">
     <div class="container">
         <div class="section-header fade-up">
             <div class="section-label">Contact</div>
@@ -1066,8 +1364,8 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
                         <i class="bi bi-linkedin"></i>
                         LinkedIn · Mardochée CAKPO
                     </a>
-                    <!-- MALT -->
-                    <a href="https://www.malt.fr/profile/mardocheecakpo" target="_blank" rel="noopener" class="contact-link">
+                    <!-- MALT (CORRIGÉ) -->
+                    <a href="https://en.malt.fr/profile/mardocheecakpo" target="_blank" rel="noopener" class="contact-link">
                         <i class="bi bi-briefcase"></i>
                         Malt · Mardochée Cakpo
                     </a>
@@ -1114,7 +1412,7 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
         <p>&copy; 2026 Mardoche Cakpo. Tous droits réservés.</p>
         <div class="footer-links">
             <a href="https://github.com/mardochecakpodev-bot" target="_blank" rel="noopener">GitHub</a>
-            <a href="https://www.malt.fr/profile/mardocheecakpo" target="_blank" rel="noopener">Malt</a>
+            <a href="https://en.malt.fr/profile/mardocheecakpo" target="_blank" rel="noopener">Malt</a>
             <a href="mailto:mardochecakpodev@gmail.com">Email</a>
         </div>
     </div>
