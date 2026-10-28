@@ -5,8 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mardoche Cakpo — Développeur Full Stack</title>
 
-<!-- FAVICON SVG (même logo que la navbar) -->
+<!-- FAVICON SVG -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%230a0a0a'/%3E%3Cpath d='M11 28V13l9 8 9-8v15' stroke='%23ffffff' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<!-- BOOTSTRAP ICONS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,6 +25,9 @@
     --text-muted: #6b7280;
     --border: #e5e7eb;
     --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --whatsapp: #25D366;
+    --linkedin: #0A66C2;
+    --malt: #FC5757;
 }
 
 html { scroll-behavior: smooth; }
@@ -54,18 +60,12 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
 
 .loader-icon {
     position: relative;
-    width: 72px;
-    height: 72px;
+    width: 72px; height: 72px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.loader-icon svg {
-    width: 56px;
-    height: 56px;
-    position: relative;
-    z-index: 2;
-}
+.loader-icon svg { width: 56px; height: 56px; position: relative; z-index: 2; }
 .loader-icon::before {
     content: '';
     position: absolute;
@@ -85,10 +85,7 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
     text-transform: uppercase;
     animation: pulse 1.6s ease-in-out infinite;
 }
-@keyframes pulse {
-    0%, 100% { opacity: 0.4; }
-    50%      { opacity: 1; }
-}
+@keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
 
 /* ===== NAVIGATION ===== */
 .navbar {
@@ -122,8 +119,7 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
 .logo:hover { opacity: 0.75; }
 
 .logo-icon {
-    width: 34px;
-    height: 34px;
+    width: 34px; height: 34px;
     border-radius: 9px;
     overflow: hidden;
     flex-shrink: 0;
@@ -131,20 +127,11 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
 }
 .logo:hover .logo-icon { transform: rotate(-6deg) scale(1.05); }
 
-.logo-text {
-    font-size: 1.05rem;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-}
+.logo-text { font-size: 1.05rem; font-weight: 800; letter-spacing: -0.03em; }
 .logo-text .dot { color: var(--text-muted); font-weight: 400; }
 
 /* NAV LINKS */
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 2rem;
-    align-items: center;
-}
+.nav-links { display: flex; list-style: none; gap: 2rem; align-items: center; }
 .nav-links a {
     color: var(--text-muted);
     text-decoration: none;
@@ -207,15 +194,8 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
     color: var(--text-muted);
     margin-bottom: 1.5rem;
 }
-.hero-eyebrow::before {
-    content: '';
-    width: 24px; height: 1.5px;
-    background: var(--text-muted);
-}
-.hero-title {
-    font-size: clamp(2.5rem, 6vw, 4.25rem);
-    margin-bottom: 1.5rem;
-}
+.hero-eyebrow::before { content: ''; width: 24px; height: 1.5px; background: var(--text-muted); }
+.hero-title { font-size: clamp(2.5rem, 6vw, 4.25rem); margin-bottom: 1.5rem; }
 .hero-title em { font-style: normal; color: var(--text-muted); }
 .hero-description {
     font-size: 1.05rem;
@@ -289,15 +269,8 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
     color: var(--text-muted);
     margin-bottom: 1rem;
 }
-.section-label::before {
-    content: '';
-    width: 20px; height: 1.5px;
-    background: var(--text-muted);
-}
-.section-title {
-    font-size: clamp(1.8rem, 3.5vw, 2.75rem);
-    max-width: 600px;
-}
+.section-label::before { content: ''; width: 20px; height: 1.5px; background: var(--text-muted); }
+.section-title { font-size: clamp(1.8rem, 3.5vw, 2.75rem); max-width: 600px; }
 
 /* ===== À PROPOS ===== */
 .about-grid {
@@ -306,12 +279,7 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
     gap: 4rem;
     align-items: start;
 }
-.about-text p {
-    color: var(--text-muted);
-    margin-bottom: 1.25rem;
-    font-size: 1rem;
-    line-height: 1.75;
-}
+.about-text p { color: var(--text-muted); margin-bottom: 1.25rem; font-size: 1rem; line-height: 1.75; }
 .about-facts { display: grid; gap: 1.25rem; margin-top: 2rem; }
 .fact {
     display: flex;
@@ -373,20 +341,8 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
     border-radius: 50px;
     font-weight: 500;
 }
-.project-description {
-    color: var(--text-muted);
-    font-size: 0.875rem;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-    flex: 1;
-}
-.project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    list-style: none;
-    margin-bottom: 1rem;
-}
+.project-description { color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; margin-bottom: 1rem; flex: 1; }
+.project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; margin-bottom: 1rem; }
 .project-tags li {
     font-size: 0.68rem;
     padding: 0.22rem 0.65rem;
@@ -474,7 +430,7 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
     margin-bottom: 2rem;
     max-width: 400px;
 }
-.contact-links { display: grid; gap: 1rem; }
+.contact-links { display: grid; gap: 0.75rem; }
 .contact-link {
     display: flex;
     align-items: center;
@@ -486,11 +442,20 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
     padding: 0.75rem 1rem;
     border: 1px solid var(--border);
     border-radius: 10px;
-    transition: border-color 0.25s, background 0.25s;
+    transition: border-color 0.25s, background 0.25s, transform 0.2s;
     word-break: break-all;
 }
-.contact-link:hover { border-color: var(--text-muted); background: var(--bg-alt); }
-.contact-link svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--text-muted); }
+.contact-link:hover {
+    border-color: var(--text-muted);
+    background: var(--bg-alt);
+    transform: translateX(3px);
+}
+.contact-link i { font-size: 1.1rem; flex-shrink: 0; }
+.contact-link .bi-whatsapp { color: var(--whatsapp); }
+.contact-link .bi-linkedin { color: var(--linkedin); }
+.contact-link .bi-briefcase { color: var(--malt); }
+.contact-link .bi-github { color: #333; }
+.contact-link .bi-envelope { color: #EA4335; }
 
 .contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
 .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
@@ -541,12 +506,7 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
 }
 .footer p { color: var(--text-muted); font-size: 0.8rem; }
 .footer-links { display: flex; gap: 1.5rem; }
-.footer-links a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.8rem;
-    transition: color 0.2s;
-}
+.footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
 .footer-links a:hover { color: var(--text); }
 
 /* ===== ANIMATIONS ===== */
@@ -559,12 +519,7 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
-    .hero {
-        flex-direction: column;
-        text-align: center;
-        padding-top: 7rem;
-        gap: 3rem;
-    }
+    .hero { flex-direction: column; text-align: center; padding-top: 7rem; gap: 3rem; }
     .hero-content { max-width: 100%; }
     .hero-eyebrow { justify-content: center; }
     .hero-description { margin-left: auto; margin-right: auto; }
@@ -707,7 +662,7 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
                     maintenables, et qui apportent une réelle valeur à leurs utilisateurs.
                 </p>
                 <a href="https://github.com/mardochecakpodev-bot" target="_blank" rel="noopener" class="btn btn-secondary" style="margin-top:0.5rem;">
-                    Voir mon GitHub
+                    <i class="bi bi-github"></i> Voir mon GitHub
                 </a>
             </div>
         </div>
@@ -775,7 +730,7 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
                     </ul>
                     <a href="https://github.com/mardochecakpodev-bot" target="_blank" rel="noopener" class="project-link">
                         Voir le profil
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                        <i class="bi bi-arrow-up-right"></i>
                     </a>
                 </div>
             </article>
@@ -828,7 +783,7 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
                     </ul>
                     <a href="#" class="project-link">
                         Voir le code
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                        <i class="bi bi-arrow-up-right"></i>
                     </a>
                 </div>
             </article>
@@ -888,7 +843,7 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
                     </ul>
                     <a href="#" class="project-link">
                         Voir le code
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                        <i class="bi bi-arrow-up-right"></i>
                     </a>
                 </div>
             </article>
@@ -945,7 +900,101 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
                     </ul>
                     <a href="#" class="project-link">
                         Voir le code
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                        <i class="bi bi-arrow-up-right"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- PROJET 5 : NOUVEAU - DASHBOARD ANALYTICS -->
+            <article class="project-card fade-up">
+                <div class="project-visual">
+                    <svg viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="600" height="340" fill="#0f172a"/>
+                        <rect width="600" height="50" fill="#1e293b"/>
+                        <text x="30" y="32" fill="#fff" font-family="Inter" font-size="16" font-weight="800">InsightBoard</text>
+                        <text x="530" y="32" fill="#94a3b8" font-family="Inter" font-size="10" text-anchor="end">Analytics</text>
+                        <rect x="20" y="70" width="130" height="70" fill="#1e293b" rx="8"/>
+                        <text x="35" y="95" fill="#94a3b8" font-family="Inter" font-size="9">Revenus</text>
+                        <text x="35" y="120" fill="#fff" font-family="Inter" font-size="16" font-weight="800">€24.8k</text>
+                        <text x="35" y="133" fill="#22c55e" font-family="Inter" font-size="8">▲ 12.5%</text>
+                        <rect x="165" y="70" width="130" height="70" fill="#1e293b" rx="8"/>
+                        <text x="180" y="95" fill="#94a3b8" font-family="Inter" font-size="9">Utilisateurs</text>
+                        <text x="180" y="120" fill="#fff" font-family="Inter" font-size="16" font-weight="800">8,432</text>
+                        <text x="180" y="133" fill="#22c55e" font-family="Inter" font-size="8">▲ 8.2%</text>
+                        <rect x="310" y="70" width="130" height="70" fill="#1e293b" rx="8"/>
+                        <text x="325" y="95" fill="#94a3b8" font-family="Inter" font-size="9">Commandes</text>
+                        <text x="325" y="120" fill="#fff" font-family="Inter" font-size="16" font-weight="800">1,245</text>
+                        <text x="325" y="133" fill="#ef4444" font-family="Inter" font-size="8">▼ 3.1%</text>
+                        <rect x="455" y="70" width="130" height="70" fill="#1e293b" rx="8"/>
+                        <text x="470" y="95" fill="#94a3b8" font-family="Inter" font-size="9">Conversion</text>
+                        <text x="470" y="120" fill="#fff" font-family="Inter" font-size="16" font-weight="800">4.8%</text>
+                        <text x="470" y="133" fill="#22c55e" font-family="Inter" font-size="8">▲ 1.2%</text>
+                        <rect x="20" y="160" width="570" height="160" fill="#1e293b" rx="8"/>
+                        <text x="40" y="185" fill="#94a3b8" font-family="Inter" font-size="10">Évolution mensuelle</text>
+                        <polyline points="50,270 110,250 170,260 230,220 290,230 350,200 410,210 470,180 530,190 570,170"
+                            fill="none" stroke="#3b82f6" stroke-width="2"/>
+                        <circle cx="570" cy="170" r="3" fill="#3b82f6"/>
+                    </svg>
+                </div>
+                <div class="project-info">
+                    <div class="project-header">
+                        <h3>InsightBoard</h3>
+                        <span class="project-year">2026</span>
+                    </div>
+                    <p class="project-description">
+                        Tableau de bord analytique en temps réel pour le suivi des ventes et du comportement utilisateur.
+                    </p>
+                    <ul class="project-tags">
+                        <li>Vue.js</li><li>D3.js</li><li>Node.js</li><li>MySQL</li>
+                    </ul>
+                    <a href="#" class="project-link">
+                        Voir le code
+                        <i class="bi bi-arrow-up-right"></i>
+                    </a>
+                </div>
+            </article>
+
+            <!-- PROJET 6 : NOUVEAU - API DE GESTION -->
+            <article class="project-card fade-up">
+                <div class="project-visual">
+                    <svg viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="600" height="340" fill="#1a1a2e"/>
+                        <rect width="600" height="50" fill="#16213e"/>
+                        <text x="30" y="32" fill="#fff" font-family="Inter" font-size="16" font-weight="800">StockAPI</text>
+                        <text x="530" y="32" fill="#94a3b8" font-family="Inter" font-size="10" text-anchor="end">REST · v2</text>
+                        <rect x="20" y="70" width="560" height="250" fill="#0f172a" rx="8"/>
+                        <text x="40" y="100" fill="#22c55e" font-family="monospace" font-size="11">GET</text>
+                        <text x="90" y="100" fill="#fff" font-family="monospace" font-size="11">/api/products</text>
+                        <text x="400" y="100" fill="#64748b" font-family="monospace" font-size="10">200 OK</text>
+                        <rect x="40" y="115" width="520" height="1" fill="#1e293b"/>
+                        <text x="40" y="145" fill="#22c55e" font-family="monospace" font-size="11">POST</text>
+                        <text x="90" y="145" fill="#fff" font-family="monospace" font-size="11">/api/orders</text>
+                        <text x="400" y="145" fill="#64748b" font-family="monospace" font-size="10">201 Created</text>
+                        <rect x="40" y="160" width="520" height="1" fill="#1e293b"/>
+                        <text x="40" y="190" fill="#f59e0b" font-family="monospace" font-size="11">PUT</text>
+                        <text x="90" y="190" fill="#fff" font-family="monospace" font-size="11">/api/products/:id</text>
+                        <text x="400" y="190" fill="#64748b" font-family="monospace" font-size="10">200 OK</text>
+                        <rect x="40" y="205" width="520" height="1" fill="#1e293b"/>
+                        <text x="40" y="235" fill="#ef4444" font-family="monospace" font-size="11">DELETE</text>
+                        <text x="90" y="235" fill="#fff" font-family="monospace" font-size="11">/api/orders/:id</text>
+                        <text x="400" y="235" fill="#64748b" font-family="monospace" font-size="10">204 No Content</text>
+                        <text x="40" y="290" fill="#64748b" font-family="monospace" font-size="9">{"status": "success", "data": [...]}</text>
+                    </svg>
+                </div>
+                <div class="project-info">
+                    <div class="project-header">
+                        <h3>StockAPI</h3>
+                        <span class="project-year">2025</span>
+                    </div>
+                    <p class="project-description">
+                        API REST sécurisée pour la gestion de stock et de commandes, avec authentification JWT et documentation Swagger.
+                    </p>
+                    <ul class="project-tags">
+                        <li>Express</li><li>MongoDB</li><li>JWT</li><li>Swagger</li>
+                    </ul>
+                    <a href="#" class="project-link">
+                        Voir le code
+                        <i class="bi bi-arrow-up-right"></i>
                     </a>
                 </div>
             </article>
@@ -1007,13 +1056,30 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
                     Remplissez le formulaire ou contactez-moi directement.
                 </p>
                 <div class="contact-links">
-                    <a href="mailto:mardochecakpodev@gmail.com" class="contact-link">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M2 7l10 7 10-7"/></svg>
-                        mardochecakpodev@gmail.com
+                    <!-- WHATSAPP -->
+                    <a href="https://wa.me/2290148220001?text=Bonjour%20Mardoche%2C%20je%20vous%20contacte%20depuis%20votre%20portfolio.%20J%27aimerais%20discuter%20d%27un%20projet%20web." target="_blank" rel="noopener" class="contact-link">
+                        <i class="bi bi-whatsapp"></i>
+                        WhatsApp · +229 01 48 22 00 01
                     </a>
+                    <!-- LINKEDIN -->
+                    <a href="https://www.linkedin.com/search/results/all/?keywords=Mardoch%C3%A9e%20CAKPO" target="_blank" rel="noopener" class="contact-link">
+                        <i class="bi bi-linkedin"></i>
+                        LinkedIn · Mardochée CAKPO
+                    </a>
+                    <!-- MALT -->
+                    <a href="https://www.malt.fr/profile/mardocheecakpo" target="_blank" rel="noopener" class="contact-link">
+                        <i class="bi bi-briefcase"></i>
+                        Malt · Mardochée Cakpo
+                    </a>
+                    <!-- GITHUB -->
                     <a href="https://github.com/mardochecakpodev-bot" target="_blank" rel="noopener" class="contact-link">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+                        <i class="bi bi-github"></i>
                         github.com/mardochecakpodev-bot
+                    </a>
+                    <!-- EMAIL -->
+                    <a href="mailto:mardochecakpodev@gmail.com" class="contact-link">
+                        <i class="bi bi-envelope"></i>
+                        mardochecakpodev@gmail.com
                     </a>
                 </div>
             </div>
@@ -1048,6 +1114,7 @@ h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
         <p>&copy; 2026 Mardoche Cakpo. Tous droits réservés.</p>
         <div class="footer-links">
             <a href="https://github.com/mardochecakpodev-bot" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://www.malt.fr/profile/mardocheecakpo" target="_blank" rel="noopener">Malt</a>
             <a href="mailto:mardochecakpodev@gmail.com">Email</a>
         </div>
     </div>
