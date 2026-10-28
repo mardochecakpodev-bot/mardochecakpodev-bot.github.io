@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mardoche Cakpo — Développeur Full Stack</title>
+
+<!-- FAVICON SVG (même logo que la navbar) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%230a0a0a'/%3E%3Cpath d='M11 28V13l9 8 9-8v15' stroke='%23ffffff' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --bg: #ffffff;
+    --bg-alt: #f7f7f8;
+    --text: #0a0a0a;
+    --text-muted: #6b7280;
+    --border: #e5e7eb;
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
+
+/* ===== LOADER ===== */
+#loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+}
+#loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+.loader-icon {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.loader-icon svg {
+    width: 56px;
+    height: 56px;
+    position: relative;
+    z-index: 2;
+}
+.loader-icon::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    border-top-color: var(--text);
+    animation: spin 0.9s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loader-text {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    animation: pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50%      { opacity: 1; }
+}
+
+/* ===== NAVIGATION ===== */
+.navbar {
+    position: fixed;
+    top: 0; width: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+}
+.nav-container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* LOGO */
+.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: var(--text);
+    transition: opacity 0.2s;
+}
+.logo:hover { opacity: 0.75; }
+
+.logo-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    overflow: hidden;
+    flex-shrink: 0;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.logo:hover .logo-icon { transform: rotate(-6deg) scale(1.05); }
+
+.logo-text {
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+.logo-text .dot { color: var(--text-muted); font-weight: 400; }
+
+/* NAV LINKS */
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+}
+.nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 0.2s;
+    position: relative;
+}
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 1.5px;
+    background: var(--text);
+    transition: width 0.3s ease;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+    padding: 0.5rem 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    color: var(--text) !important;
+    font-weight: 600 !important;
+    transition: background 0.2s, border-color 0.2s;
+}
+.nav-cta:hover { background: var(--bg-alt); border-color: var(--text-muted); }
+.nav-cta::after { display: none !important; }
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 0.25rem;
+}
+
+/* ===== HERO ===== */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 8rem 2rem 4rem;
+    gap: 4rem;
+}
+.hero-content { flex: 1; max-width: 560px; }
+.hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+.hero-eyebrow::before {
+    content: '';
+    width: 24px; height: 1.5px;
+    background: var(--text-muted);
+}
+.hero-title {
+    font-size: clamp(2.5rem, 6vw, 4.25rem);
+    margin-bottom: 1.5rem;
+}
+.hero-title em { font-style: normal; color: var(--text-muted); }
+.hero-description {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 460px;
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+}
+.hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.75rem 1.6rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 0.25s ease;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-family: inherit;
+}
+.btn-primary { background: var(--text); color: #fff; }
+.btn-primary:hover { background: #1f2937; transform: translateY(-1px); }
+.btn-secondary { border-color: var(--border); color: var(--text); background: transparent; }
+.btn-secondary:hover { border-color: var(--text-muted); background: var(--bg-alt); }
+
+.hero-visual { flex: 1; display: flex; justify-content: center; align-items: center; }
+.hero-card {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 380px;
+    font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+    font-size: 0.82rem;
+    line-height: 1.9;
+    color: var(--text-muted);
+    position: relative;
+}
+.hero-card::before {
+    content: '● ● ●';
+    position: absolute;
+    top: 14px; left: 18px;
+    font-size: 0.6rem;
+    letter-spacing: 4px;
+    color: #d1d5db;
+}
+.hero-card-body { margin-top: 1.2rem; }
+.code-keyword { color: #7c3aed; }
+.code-string  { color: #059669; }
+.code-prop    { color: #2563eb; }
+
+/* ===== SECTIONS ===== */
+.section { padding: 7rem 2rem; }
+.section-alt { background: var(--bg-alt); }
+.container { max-width: 1140px; margin: 0 auto; }
+
+.section-header { margin-bottom: 3.5rem; }
+.section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+.section-label::before {
+    content: '';
+    width: 20px; height: 1.5px;
+    background: var(--text-muted);
+}
+.section-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+    max-width: 600px;
+}
+
+/* ===== À PROPOS ===== */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+.about-text p {
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+    font-size: 1rem;
+    line-height: 1.75;
+}
+.about-facts { display: grid; gap: 1.25rem; margin-top: 2rem; }
+.fact {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+}
+.fact-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
+.fact-value { font-size: 0.9rem; font-weight: 600; text-align: right; }
+
+/* ===== PROJETS ===== */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+.project-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    display: flex;
+    flex-direction: column;
+}
+.project-card:hover {
+    transform: translateY(-4px);
+    border-color: #d1d5db;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+}
+.project-visual {
+    width: 100%;
+    aspect-ratio: 6 / 3.4;
+    overflow: hidden;
+    background: #f3f4f6;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+}
+.project-visual svg {
+    width: 100%; height: 100%;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.project-card:hover .project-visual svg { transform: scale(1.03); }
+.project-info { padding: 1.4rem; flex: 1; display: flex; flex-direction: column; }
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.5rem;
+}
+.project-info h3 { font-size: 1.15rem; font-weight: 700; }
+.project-year {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    padding: 0.12rem 0.55rem;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    font-weight: 500;
+}
+.project-description {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    flex: 1;
+}
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+    margin-bottom: 1rem;
+}
+.project-tags li {
+    font-size: 0.68rem;
+    padding: 0.22rem 0.65rem;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    color: var(--text-muted);
+    font-weight: 500;
+    background: var(--bg-alt);
+}
+.project-link {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-top: auto;
+    transition: gap 0.25s ease;
+}
+.project-link:hover { gap: 0.55rem; }
+.project-link svg { transition: transform 0.25s ease; }
+.project-link:hover svg { transform: translate(2px, -2px); }
+
+/* ===== COMPÉTENCES ===== */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+.skill-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.75rem;
+    transition: border-color 0.3s ease;
+}
+.skill-card:hover { border-color: #d1d5db; }
+.skill-card h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.skill-icon {
+    width: 22px; height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    background: var(--text);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 800;
+}
+.skill-list { list-style: none; display: grid; gap: 0.6rem; }
+.skill-list li {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.skill-list li::before {
+    content: '';
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    flex-shrink: 0;
+}
+
+/* ===== CONTACT ===== */
+.contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+.contact-info p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.75;
+    margin-bottom: 2rem;
+    max-width: 400px;
+}
+.contact-links { display: grid; gap: 1rem; }
+.contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    transition: border-color 0.25s, background 0.25s;
+    word-break: break-all;
+}
+.contact-link:hover { border-color: var(--text-muted); background: var(--bg-alt); }
+.contact-link svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--text-muted); }
+
+.contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.form-group label { font-size: 0.8rem; font-weight: 600; color: var(--text); }
+.form-group input,
+.form-group textarea {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: border-color 0.25s, box-shadow 0.25s;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--text-muted);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.04);
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: #9ca3af; }
+
+.btn-submit {
+    background: var(--text);
+    color: #fff;
+    border: none;
+    padding: 0.85rem 1.75rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.25s, transform 0.2s;
+    align-self: flex-start;
+}
+.btn-submit:hover { background: #1f2937; transform: translateY(-1px); }
+
+/* ===== FOOTER ===== */
+.footer { padding: 2.5rem 2rem; border-top: 1px solid var(--border); }
+.footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.footer p { color: var(--text-muted); font-size: 0.8rem; }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--text); }
+
+/* ===== ANIMATIONS ===== */
+.fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 7rem;
+        gap: 3rem;
+    }
+    .hero-content { max-width: 100%; }
+    .hero-eyebrow { justify-content: center; }
+    .hero-description { margin-left: auto; margin-right: auto; }
+    .hero-actions { justify-content: center; }
+    .hero-visual { width: 100%; }
+    .hero-card { max-width: 100%; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+
+@media (max-width: 640px) {
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%; left: 0; width: 100%;
+        background: var(--bg);
+        flex-direction: column;
+        padding: 1.5rem 2rem;
+        gap: 1.25rem;
+        border-bottom: 1px solid var(--border);
+        align-items: flex-start;
+    }
+    .nav-links.active { display: flex; }
+    .menu-toggle { display: block; }
+    .section { padding: 5rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .footer .container { flex-direction: column; text-align: center; }
+    .btn-submit { align-self: stretch; text-align: center; }
+    .logo-text { font-size: 0.95rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+    <div class="loader-icon">
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="10" fill="#0a0a0a"/>
+            <path d="M11 28V13l9 8 9-8v15" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+    <div class="loader-text">Chargement du portfolio</div>
+</div>
+
+<!-- NAVIGATION -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="#" class="logo">
+            <span class="logo-icon">
+                <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="34" height="34">
+                    <rect width="40" height="40" rx="10" fill="#0a0a0a"/>
+                    <path d="M11 28V13l9 8 9-8v15" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+            <span class="logo-text">Mardoche<span class="dot">.C</span></span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#about">À propos</a></li>
+            <li><a href="#projects">Projets</a></li>
+            <li><a href="#skills">Compétences</a></li>
+            <li><a href="#contact" class="nav-cta">Me contacter</a></li>
+        </ul>
+        <button class="menu-toggle" aria-label="Menu">☰</button>
+    </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+    <div class="hero-content">
+        <div class="hero-eyebrow">Développeur Full Stack</div>
+        <h1 class="hero-title">Je conçois des <em>produits web</em> simples et performants.</h1>
+        <p class="hero-description">
+            Du front-end au back-end, je transforme des idées en applications
+            robustes, rapides et pensées pour l'utilisateur.
+        </p>
+        <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">Voir mes projets</a>
+            <a href="#contact" class="btn btn-secondary">Discutons</a>
+        </div>
+    </div>
+    <div class="hero-visual">
+        <div class="hero-card">
+            <div class="hero-card-body">
+                <div><span class="code-keyword">const</span> developer = {</div>
+                <div>&nbsp;&nbsp;<span class="code-prop">name</span>: <span class="code-string">'Mardoche Cakpo'</span>,</div>
+                <div>&nbsp;&nbsp;<span class="code-prop">role</span>: <span class="code-string">'Full Stack'</span>,</div>
+                <div>&nbsp;&nbsp;<span class="code-prop">stack</span>: [<span class="code-string">'React'</span>, <span class="code-string">'Node'</span>, <span class="code-string">'MongoDB'</span>],</div>
+                <div>&nbsp;&nbsp;<span class="code-prop">focus</span>: <span class="code-string">'Clean Code'</span></div>
+                <div>};</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- À PROPOS -->
+<section id="about" class="section">
+    <div class="container">
+        <div class="section-header fade-up">
+            <div class="section-label">À propos</div>
+            <h2 class="section-title">Un développeur qui aime la clarté.</h2>
+        </div>
+        <div class="about-grid">
+            <div class="about-text fade-up">
+                <p>
+                    Développeur full stack passionné, je me spécialise dans la création
+                    d'applications web robustes et intuitives. J'aime résoudre des problèmes
+                    complexes et transformer des idées en produits fonctionnels.
+                </p>
+                <p>
+                    Mon approche se concentre sur la qualité du code, la performance et
+                    l'expérience utilisateur. Je suis constamment en veille technologique
+                    pour intégrer les meilleures pratiques à mes projets.
+                </p>
+                <div class="about-facts">
+                    <div class="fact">
+                        <span class="fact-label">Disponibilité</span>
+                        <span class="fact-value">Ouvert aux missions</span>
+                    </div>
+                    <div class="fact">
+                        <span class="fact-label">Spécialité</span>
+                        <span class="fact-value">Full Stack Web</span>
+                    </div>
+                    <div class="fact">
+                        <span class="fact-label">Mode</span>
+                        <span class="fact-value">Remote / Hybride</span>
+                    </div>
+                </div>
+            </div>
+            <div class="about-text fade-up">
+                <p>
+                    Je travaille principalement avec l'écosystème JavaScript : React pour
+                    des interfaces réactives, Node.js et Express pour des API solides,
+                    et MongoDB ou PostgreSQL pour la persistance des données.
+                </p>
+                <p>
+                    Ce qui me motive ? Livrer des produits qui fonctionnent, qui sont
+                    maintenables, et qui apportent une réelle valeur à leurs utilisateurs.
+                </p>
+                <a href="https://github.com/mardochecakpodev-bot" target="_blank" rel="noopener" class="btn btn-secondary" style="margin-top:0.5rem;">
+                    Voir mon GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROJETS -->
+<section id="projects" class="section section-alt">
+    <div class="container">
+        <div class="section-header fade-up">
+            <div class="section-label">Projets</div>
+            <h2 class="section-title">Réalisations sélectionnées.</h2>
+        </div>
+        <div class="projects-grid">
+
+            <!-- PROJET 1 : GOLD RUSH -->
+            <article class="project-card fade-up">
+                <div class="project-visual">
+                    <svg viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="goldGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#f0b90b" stop-opacity="0.35"/>
+                                <stop offset="100%" stop-color="#f0b90b" stop-opacity="0"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="600" height="340" fill="#0a0a0a"/>
+                        <rect width="60" height="340" fill="#111"/>
+                        <circle cx="30" cy="35" r="14" fill="#f0b90b"/>
+                        <text x="30" y="41" fill="#0a0a0a" font-family="Inter" font-size="14" font-weight="800" text-anchor="middle">G</text>
+                        <text x="80" y="42" fill="#fff" font-family="Inter" font-size="16" font-weight="700">Gold Rush</text>
+                        <text x="80" y="60" fill="#666" font-family="Inter" font-size="10">Portfolio · Live</text>
+                        <circle cx="565" cy="35" r="4" fill="#00c896"/>
+                        <text x="550" y="39" fill="#00c896" font-family="Inter" font-size="10" text-anchor="end">LIVE</text>
+                        <rect x="80" y="80" width="500" height="160" fill="#111" rx="8"/>
+                        <polyline points="100,200 140,185 180,195 220,160 260,170 300,140 340,150 380,115 420,130 460,100 500,110 550,85"
+                            fill="none" stroke="#f0b90b" stroke-width="2"/>
+                        <polygon points="100,200 140,185 180,195 220,160 260,170 300,140 340,150 380,115 420,130 460,100 500,110 550,85 550,230 100,230"
+                            fill="url(#goldGrad)"/>
+                        <circle cx="550" cy="85" r="4" fill="#f0b90b"/>
+                        <text x="100" y="270" fill="#888" font-family="Inter" font-size="10">BTC</text>
+                        <text x="100" y="288" fill="#fff" font-family="Inter" font-size="13" font-weight="700">$67,432</text>
+                        <text x="100" y="302" fill="#00c896" font-family="Inter" font-size="9">▲ 2.4%</text>
+                        <text x="220" y="270" fill="#888" font-family="Inter" font-size="10">ETH</text>
+                        <text x="220" y="288" fill="#fff" font-family="Inter" font-size="13" font-weight="700">$3,208</text>
+                        <text x="220" y="302" fill="#ff4d4d" font-family="Inter" font-size="9">▼ 1.1%</text>
+                        <text x="340" y="270" fill="#888" font-family="Inter" font-size="10">SOL</text>
+                        <text x="340" y="288" fill="#fff" font-family="Inter" font-size="13" font-weight="700">$182.55</text>
+                        <text x="340" y="302" fill="#00c896" font-family="Inter" font-size="9">▲ 5.7%</text>
+                        <text x="460" y="270" fill="#888" font-family="Inter" font-size="10">ADA</text>
+                        <text x="460" y="288" fill="#fff" font-family="Inter" font-size="13" font-weight="700">$0.62</text>
+                        <text x="460" y="302" fill="#00c896" font-family="Inter" font-size="9">▲ 0.9%</text>
+                    </svg>
+                </div>
+                <div class="project-info">
+                    <div class="project-header">
+                        <h3>Gold Rush</h3>
+                        <span class="project-year">2026</span>
+                    </div>
+                    <p class="project-description">
+                        Plateforme de suivi de cryptomonnaies en temps réel avec graphiques
+                        interactifs, alertes de prix et gestion de portefeuille multi-actifs.
+                    </p>
+                    <ul class="project-tags">
+                        <li>React</li><li>Node.js</li><li>WebSocket</li><li>PostgreSQL</li>
+                    </ul>
+                    <a href="https://github.com/mardochecakpodev-bot" target="_blank" rel="noopener" class="project-link">
+                        Voir le profil
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                    </a>
+                </div>
+            </article>
+
+            <!-- PROJET 2 : SHOPWAVE -->
+            <article class="project-card fade-up">
+                <div class="project-visual">
+                    <svg viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="600" height="340" fill="#f7f7f8"/>
+                        <rect width="600" height="50" fill="#fff"/>
+                        <text x="30" y="32" fill="#0a0a0a" font-family="Inter" font-size="16" font-weight="800">ShopWave</text>
+                        <rect x="380" y="15" width="180" height="22" rx="11" fill="#f0f0f0"/>
+                        <text x="395" y="30" fill="#999" font-family="Inter" font-size="10">Rechercher…</text>
+                        <circle cx="580" cy="26" r="10" fill="#0a0a0a"/>
+                        <text x="580" y="30" fill="#fff" font-family="Inter" font-size="10" text-anchor="middle" font-weight="700">2</text>
+                        <rect x="20" y="70" width="180" height="250" fill="#fff" rx="8"/>
+                        <rect x="20" y="70" width="180" height="120" fill="#e8e8ea" rx="8"/>
+                        <text x="30" y="215" fill="#0a0a0a" font-family="Inter" font-size="12" font-weight="700">Sneakers Pro</text>
+                        <text x="30" y="235" fill="#666" font-family="Inter" font-size="10">Chaussures</text>
+                        <text x="30" y="265" fill="#0a0a0a" font-family="Inter" font-size="14" font-weight="800">€89.90</text>
+                        <rect x="30" y="280" width="160" height="28" rx="6" fill="#0a0a0a"/>
+                        <text x="110" y="298" fill="#fff" font-family="Inter" font-size="10" text-anchor="middle" font-weight="600">Ajouter</text>
+                        <rect x="215" y="70" width="180" height="250" fill="#fff" rx="8"/>
+                        <rect x="215" y="70" width="180" height="120" fill="#e8e8ea" rx="8"/>
+                        <text x="225" y="215" fill="#0a0a0a" font-family="Inter" font-size="12" font-weight="700">Casque Audio</text>
+                        <text x="225" y="235" fill="#666" font-family="Inter" font-size="10">Électronique</text>
+                        <text x="225" y="265" fill="#0a0a0a" font-family="Inter" font-size="14" font-weight="800">€149.00</text>
+                        <rect x="225" y="280" width="160" height="28" rx="6" fill="#0a0a0a"/>
+                        <text x="305" y="298" fill="#fff" font-family="Inter" font-size="10" text-anchor="middle" font-weight="600">Ajouter</text>
+                        <rect x="410" y="70" width="180" height="250" fill="#fff" rx="8"/>
+                        <rect x="410" y="70" width="180" height="120" fill="#e8e8ea" rx="8"/>
+                        <text x="420" y="215" fill="#0a0a0a" font-family="Inter" font-size="12" font-weight="700">Montre Luxe</text>
+                        <text x="420" y="235" fill="#666" font-family="Inter" font-size="10">Accessoires</text>
+                        <text x="420" y="265" fill="#0a0a0a" font-family="Inter" font-size="14" font-weight="800">€249.00</text>
+                        <rect x="420" y="280" width="160" height="28" rx="6" fill="#0a0a0a"/>
+                        <text x="500" y="298" fill="#fff" font-family="Inter" font-size="10" text-anchor="middle" font-weight="600">Ajouter</text>
+                    </svg>
+                </div>
+                <div class="project-info">
+                    <div class="project-header">
+                        <h3>ShopWave</h3>
+                        <span class="project-year">2025</span>
+                    </div>
+                    <p class="project-description">
+                        E-commerce moderne avec paiement Stripe, gestion de stock en temps
+                        réel et back-office administrateur complet.
+                    </p>
+                    <ul class="project-tags">
+                        <li>Next.js</li><li>Stripe</li><li>Prisma</li><li>Tailwind</li>
+                    </ul>
+                    <a href="#" class="project-link">
+                        Voir le code
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                    </a>
+                </div>
+            </article>
+
+            <!-- PROJET 3 : TASKFLOW -->
+            <article class="project-card fade-up">
+                <div class="project-visual">
+                    <svg viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="600" height="340" fill="#f5f5f7"/>
+                        <rect width="600" height="50" fill="#fff"/>
+                        <text x="30" y="32" fill="#0a0a0a" font-family="Inter" font-size="16" font-weight="800">TaskFlow</text>
+                        <circle cx="540" cy="26" r="12" fill="#7c5cff"/>
+                        <circle cx="565" cy="26" r="12" fill="#ff7a5c"/>
+                        <circle cx="590" cy="26" r="12" fill="#5ccfff"/>
+                        <text x="30" y="80" fill="#999" font-family="Inter" font-size="10" font-weight="600">À FAIRE (3)</text>
+                        <rect x="20" y="90" width="180" height="60" fill="#fff" rx="6"/>
+                        <text x="30" y="112" fill="#0a0a0a" font-family="Inter" font-size="11" font-weight="600">Design landing page</text>
+                        <rect x="30" y="125" width="40" height="14" rx="7" fill="#ffe0b3"/>
+                        <text x="50" y="135" fill="#a86b00" font-family="Inter" font-size="8" text-anchor="middle">UI</text>
+                        <rect x="20" y="160" width="180" height="60" fill="#fff" rx="6"/>
+                        <text x="30" y="182" fill="#0a0a0a" font-family="Inter" font-size="11" font-weight="600">Intégrer Stripe</text>
+                        <rect x="30" y="195" width="55" height="14" rx="7" fill="#ffd6d6"/>
+                        <text x="57" y="205" fill="#a83030" font-family="Inter" font-size="8" text-anchor="middle">BACKEND</text>
+                        <rect x="20" y="230" width="180" height="60" fill="#fff" rx="6"/>
+                        <text x="30" y="252" fill="#0a0a0a" font-family="Inter" font-size="11" font-weight="600">Tests unitaires</text>
+                        <rect x="30" y="265" width="45" height="14" rx="7" fill="#d6f0ff"/>
+                        <text x="52" y="275" fill="#0060a8" font-family="Inter" font-size="8" text-anchor="middle">QA</text>
+                        <text x="220" y="80" fill="#999" font-family="Inter" font-size="10" font-weight="600">EN COURS (2)</text>
+                        <rect x="210" y="90" width="180" height="60" fill="#fff" rx="6" stroke="#7c5cff" stroke-width="1.5"/>
+                        <text x="220" y="112" fill="#0a0a0a" font-family="Inter" font-size="11" font-weight="600">API authentification</text>
+                        <rect x="220" y="125" width="55" height="14" rx="7" fill="#e0d6ff"/>
+                        <text x="247" y="135" fill="#5535cc" font-family="Inter" font-size="8" text-anchor="middle">BACKEND</text>
+                        <rect x="210" y="160" width="180" height="60" fill="#fff" rx="6"/>
+                        <text x="220" y="182" fill="#0a0a0a" font-family="Inter" font-size="11" font-weight="600">WebSockets</text>
+                        <rect x="220" y="195" width="55" height="14" rx="7" fill="#d6f0ff"/>
+                        <text x="247" y="205" fill="#0060a8" font-family="Inter" font-size="8" text-anchor="middle">REALTIME</text>
+                        <text x="410" y="80" fill="#999" font-family="Inter" font-size="10" font-weight="600">TERMINÉ (5)</text>
+                        <rect x="400" y="90" width="180" height="60" fill="#fff" rx="6" opacity="0.7"/>
+                        <text x="410" y="112" fill="#999" font-family="Inter" font-size="11" font-weight="600" text-decoration="line-through">Setup CI/CD</text>
+                        <rect x="400" y="160" width="180" height="60" fill="#fff" rx="6" opacity="0.7"/>
+                        <text x="410" y="182" fill="#999" font-family="Inter" font-size="11" font-weight="600" text-decoration="line-through">Dashboard admin</text>
+                        <rect x="400" y="230" width="180" height="60" fill="#fff" rx="6" opacity="0.7"/>
+                        <text x="410" y="252" fill="#999" font-family="Inter" font-size="11" font-weight="600" text-decoration="line-through">Notifs email</text>
+                    </svg>
+                </div>
+                <div class="project-info">
+                    <div class="project-header">
+                        <h3>TaskFlow</h3>
+                        <span class="project-year">2025</span>
+                    </div>
+                    <p class="project-description">
+                        Application de gestion de tâches en équipe façon Kanban, avec
+                        collaboration temps réel, notifications et suivi d'activité.
+                    </p>
+                    <ul class="project-tags">
+                        <li>React</li><li>TypeScript</li><li>Socket.io</li><li>MongoDB</li>
+                    </ul>
+                    <a href="#" class="project-link">
+                        Voir le code
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                    </a>
+                </div>
+            </article>
+
+            <!-- PROJET 4 : CHATTERLY -->
+            <article class="project-card fade-up">
+                <div class="project-visual">
+                    <svg viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="600" height="340" fill="#fff"/>
+                        <rect width="200" height="340" fill="#f5f5f7"/>
+                        <text x="20" y="35" fill="#0a0a0a" font-family="Inter" font-size="15" font-weight="800">Chatterly</text>
+                        <rect x="20" y="55" width="160" height="35" rx="8" fill="#fff"/>
+                        <circle cx="40" cy="72" r="10" fill="#7c5cff"/>
+                        <text x="58" y="72" fill="#0a0a0a" font-family="Inter" font-size="10" font-weight="600">Sarah K.</text>
+                        <text x="58" y="84" fill="#999" font-family="Inter" font-size="8">En ligne</text>
+                        <rect x="20" y="100" width="160" height="35" rx="8" fill="#0a0a0a"/>
+                        <circle cx="40" cy="117" r="10" fill="#ff7a5c"/>
+                        <text x="58" y="117" fill="#fff" font-family="Inter" font-size="10" font-weight="600">Marc D.</text>
+                        <text x="58" y="129" fill="#bbb" font-family="Inter" font-size="8">Il y a 2 min</text>
+                        <rect x="20" y="145" width="160" height="35" rx="8" fill="none"/>
+                        <circle cx="40" cy="162" r="10" fill="#5ccfff"/>
+                        <text x="58" y="162" fill="#0a0a0a" font-family="Inter" font-size="10" font-weight="600">Léa M.</text>
+                        <text x="58" y="174" fill="#999" font-family="Inter" font-size="8">Il y a 1 h</text>
+                        <rect x="200" y="0" width="400" height="50" fill="#fff" stroke="#eee"/>
+                        <circle cx="225" cy="26" r="14" fill="#ff7a5c"/>
+                        <text x="245" y="24" fill="#0a0a0a" font-family="Inter" font-size="12" font-weight="700">Marc D.</text>
+                        <text x="245" y="38" fill="#00c896" font-family="Inter" font-size="9">● En ligne</text>
+                        <rect x="230" y="80" width="220" height="45" rx="10" fill="#f5f5f7"/>
+                        <text x="245" y="100" fill="#0a0a0a" font-family="Inter" font-size="10">Salut ! Tu as vu le nouveau design ?</text>
+                        <text x="245" y="114" fill="#999" font-family="Inter" font-size="8">09:42</text>
+                        <rect x="380" y="145" width="200" height="45" rx="10" fill="#0a0a0a"/>
+                        <text x="395" y="165" fill="#fff" font-family="Inter" font-size="10">Oui, super boulot 🔥</text>
+                        <text x="395" y="179" fill="#888" font-family="Inter" font-size="8">09:43</text>
+                        <rect x="230" y="210" width="260" height="45" rx="10" fill="#f5f5f7"/>
+                        <text x="245" y="230" fill="#0a0a0a" font-family="Inter" font-size="10">Je te fais un retour cette après-midi</text>
+                        <text x="245" y="244" fill="#999" font-family="Inter" font-size="8">09:45</text>
+                        <circle cx="240" cy="290" r="12" fill="#7c5cff"/>
+                        <text x="240" y="294" fill="#fff" font-family="Inter" font-size="10" text-anchor="middle">+</text>
+                        <rect x="260" y="278" width="310" height="24" rx="12" fill="#f5f5f7"/>
+                        <text x="275" y="294" fill="#999" font-family="Inter" font-size="10">Écrire un message…</text>
+                    </svg>
+                </div>
+                <div class="project-info">
+                    <div class="project-header">
+                        <h3>Chatterly</h3>
+                        <span class="project-year">2025</span>
+                    </div>
+                    <p class="project-description">
+                        Messagerie instantanée avec groupes, partage de médias, statut en
+                        ligne et chiffrement des messages.
+                    </p>
+                    <ul class="project-tags">
+                        <li>React</li><li>Firebase</li><li>WebSocket</li><li>Tailwind</li>
+                    </ul>
+                    <a href="#" class="project-link">
+                        Voir le code
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                    </a>
+                </div>
+            </article>
+
+        </div>
+    </div>
+</section>
+
+<!-- COMPÉTENCES -->
+<section id="skills" class="section">
+    <div class="container">
+        <div class="section-header fade-up">
+            <div class="section-label">Compétences</div>
+            <h2 class="section-title">Les outils que j'utilise au quotidien.</h2>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-card fade-up">
+                <h3><span class="skill-icon">F</span> Frontend</h3>
+                <ul class="skill-list">
+                    <li>HTML5 / CSS3</li>
+                    <li>JavaScript (ES6+)</li>
+                    <li>React.js</li>
+                    <li>Tailwind CSS</li>
+                </ul>
+            </div>
+            <div class="skill-card fade-up">
+                <h3><span class="skill-icon">B</span> Backend</h3>
+                <ul class="skill-list">
+                    <li>Node.js</li>
+                    <li>Express.js</li>
+                    <li>MongoDB</li>
+                    <li>API REST</li>
+                </ul>
+            </div>
+            <div class="skill-card fade-up">
+                <h3><span class="skill-icon">T</span> Outils</h3>
+                <ul class="skill-list">
+                    <li>Git / GitHub</li>
+                    <li>VS Code</li>
+                    <li>Postman</li>
+                    <li>Docker (bases)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section section-alt">
+    <div class="container">
+        <div class="section-header fade-up">
+            <div class="section-label">Contact</div>
+            <h2 class="section-title">Travaillons ensemble.</h2>
+        </div>
+        <div class="contact-layout">
+            <div class="contact-info fade-up">
+                <p>
+                    Une idée de projet, une opportunité ou simplement envie d'échanger ?
+                    Remplissez le formulaire ou contactez-moi directement.
+                </p>
+                <div class="contact-links">
+                    <a href="mailto:mardochecakpodev@gmail.com" class="contact-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M2 7l10 7 10-7"/></svg>
+                        mardochecakpodev@gmail.com
+                    </a>
+                    <a href="https://github.com/mardochecakpodev-bot" target="_blank" rel="noopener" class="contact-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+                        github.com/mardochecakpodev-bot
+                    </a>
+                </div>
+            </div>
+            <form action="https://formsubmit.co/mardochecakpodev@gmail.com" method="POST" class="contact-form fade-up">
+                <input type="hidden" name="_subject" value="Nouveau message depuis votre portfolio">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="text" name="_honey" style="display:none">
+                <input type="hidden" name="_autoresponse" value="Merci pour votre message ! Je vous répondrai dans les plus brefs délais.">
+
+                <div class="form-group">
+                    <label for="name">Nom</label>
+                    <input type="text" id="name" name="name" placeholder="Votre nom" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="votre@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Parlez-moi de votre projet..." required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Envoyer le message</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2026 Mardoche Cakpo. Tous droits réservés.</p>
+        <div class="footer-links">
+            <a href="https://github.com/mardochecakpodev-bot" target="_blank" rel="noopener">GitHub</a>
+            <a href="mailto:mardochecakpodev@gmail.com">Email</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+/* LOADER */
+window.addEventListener('load', () => {
+    const loader = document.getElementById('loader');
+    setTimeout(() => loader.classList.add('hidden'), 1200);
+});
+
+/* ANIMATIONS AU SCROLL */
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+/* MENU MOBILE */
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+
+menuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+
+navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => navLinks.classList.remove('active'));
+});
+</script>
+
+</body>
+</html>
