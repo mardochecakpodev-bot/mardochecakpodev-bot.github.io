@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mardoche Cakpo — Mes liens</title>
+<meta name="description" content="Tous les liens de Mardoche Cakpo : portfolio, LinkedIn, Malt, GitHub, WhatsApp et email.">
+<meta name="theme-color" content="#4f46e5">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%234f46e5'/%3E%3Cpath d='M11 28V13l9 8 9-8v15' stroke='%23ffffff' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<!-- Theme avant rendu -->
+<script>
+  (function(){
+    var t = null;
+    try { t = localStorage.getItem('theme'); } catch(e) {}
+    if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+  })();
+</script>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['"Space Grotesk"', 'Inter', 'sans-serif']
+      }
+    }
+  }
+};
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+<style>
+  /* Fond dégradé subtil */
+  body {
+    background: #ffffff;
+    transition: background-color .3s ease;
+  }
+  .dark body { background: #09090b; }
+
+  .bg-aurora {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .bg-aurora::before,
+  .bg-aurora::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.35;
+  }
+  .bg-aurora::before {
+    width: 500px; height: 500px;
+    background: #6366f1;
+    top: -200px; left: -150px;
+    animation: float1 14s ease-in-out infinite;
+  }
+  .bg-aurora::after {
+    width: 450px; height: 450px;
+    background: #a855f7;
+    bottom: -180px; right: -120px;
+    animation: float2 16s ease-in-out infinite;
+  }
+  .dark .bg-aurora::before { opacity: 0.18; }
+  .dark .bg-aurora::after  { opacity: 0.14; }
+
+  @keyframes float1 {
+    0%, 100% { transform: translate(0, 0); }
+    50%      { transform: translate(40px, 30px); }
+  }
+  @keyframes float2 {
+    0%, 100% { transform: translate(0, 0); }
+    50%      { transform: translate(-30px, -40px); }
+  }
+
+  /* Apparition en cascade */
+  .animate-in {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: slideUp .55s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  @keyframes slideUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Carte de lien */
+  .link-card {
+    transition: transform .25s cubic-bezier(.2,.8,.2,1),
+                box-shadow .25s ease,
+                border-color .25s ease,
+                background-color .25s ease;
+  }
+  .link-card:hover {
+    transform: translateY(-2px) scale(1.01);
+  }
+  .link-card:hover .link-icon {
+    transform: scale(1.08) rotate(-4deg);
+  }
+  .link-icon {
+    transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  .link-card:hover .link-arrow {
+    transform: translate(2px, -2px);
+    opacity: 1;
+  }
+  .link-arrow {
+    transition: transform .25s ease, opacity .25s ease;
+    opacity: 0.4;
+  }
+
+  /* Bouton thème */
+  .icon-btn {
+    width: 44px; height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    background: rgba(255,255,255,.7);
+    backdrop-filter: blur(8px);
+    color: #52525b;
+    transition: background .2s, border-color .2s, color .2s;
+  }
+  .dark .icon-btn {
+    border-color: #27272a;
+    background: rgba(24,24,27,.7);
+    color: #a1a1aa;
+  }
+  .icon-btn:hover {
+    border-color: #a1a1aa;
+    color: #18181b;
+  }
+  .dark .icon-btn:hover { color: #fff; }
+
+  /* Badge disponible */
+  .status-dot {
+    position: relative;
+    display: inline-flex;
+    width: 8px; height: 8px;
+  }
+  .status-dot::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: #22c55e;
+    opacity: 0.75;
+    animation: ping 1.4s cubic-bezier(0,0,.2,1) infinite;
+  }
+  .status-dot::after {
+    content: '';
+    position: relative;
+    display: block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+  }
+  @keyframes ping {
+    75%, 100% { transform: scale(2.4); opacity: 0; }
+  }
+</style>
+</head>
+
+<body class="min-h-screen font-sans text-zinc-900 dark:text-zinc-100 antialiased">
+
+<!-- Fond décoratif -->
+<div class="bg-aurora"></div>
+
+<!-- Bouton thème en haut à droite -->
+<div class="fixed top-5 right-5 z-20">
+  <button id="themeToggle" aria-label="Changer de thème" class="icon-btn">
+    <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+    <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+  </button>
+</div>
+
+<!-- Contenu principal -->
+<main class="relative z-10 min-h-screen flex flex-col items-center justify-center px-5 py-16">
+  <div class="w-full max-w-md">
+
+    <!-- Profil -->
+    <section class="text-center mb-10 animate-in" style="animation-delay:.05s">
+      <!-- Avatar monogramme -->
+      <div class="relative inline-block mb-5">
+        <div class="w-24 h-24 rounded-3xl bg-indigo-600 dark:bg-indigo-500 flex items-center justify-center shadow-lg shadow-indigo-600/20">
+          <span class="font-display text-3xl font-bold text-white tracking-tight">MC</span>
+        </div>
+        <span class="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-white dark:bg-zinc-950 flex items-center justify-center">
+          <span class="status-dot"></span>
+        </span>
+      </div>
+
+      <h1 class="font-display text-2xl sm:text-3xl font-bold tracking-tight mb-1.5">
+        Mardoche Cakpo
+      </h1>
+      <p class="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base">
+        Développeur Full Stack Web & Mobile
+      </p>
+      <p class="mt-2 text-xs text-zinc-500 dark:text-zinc-500">
+        Bénin 🇧🇯 · Disponible pour missions remote
+      </p>
+    </section>
+
+    <!-- Liste de liens -->
+    <section class="space-y-3">
+
+      <!-- Portfolio -->
+      <a href="https://mardochecakpodev-bot.github.io" target="_blank" rel="noopener"
+         class="link-card animate-in flex items-center gap-4 p-4 rounded-2xl bg-white/80 dark:bg-zinc-900/70 backdrop-blur-md border border-zinc-200 dark:border-zinc-800 hover:border-indigo-400 dark:hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/10"
+         style="animation-delay:.1s">
+        <span class="link-icon w-11 h-11 rounded-xl bg-indigo-100 dark:bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+          <i data-lucide="globe" class="w-5 h-5"></i>
+        </span>
+        <div class="flex-1 min-w-0">
+          <p class="font-semibold text-sm">Mon portfolio</p>
+          <p class="text-xs text-zinc-500 truncate">mardochecakpodev-bot.github.io</p>
+        </div>
+        <i data-lucide="arrow-up-right" class="link-arrow w-4 h-4"></i>
+      </a>
+
+      <!-- WhatsApp -->
+      <a href="https://wa.me/2290148220001?text=Bonjour%20Mardoche%2C%20je%20vous%20contacte%20depuis%20votre%20page%20de%20liens.%20J%27aimerais%20discuter%20d%27un%20projet." target="_blank" rel="noopener"
+         class="link-card animate-in flex items-center gap-4 p-4 rounded-2xl bg-white/80 dark:bg-zinc-900/70 backdrop-blur-md border border-zinc-200 dark:border-zinc-800 hover:border-emerald-400 dark:hover:border-emerald-500 hover:shadow-lg hover:shadow-emerald-500/10"
+         style="animation-delay:.15s">
+        <span class="link-icon w-11 h-11 rounded-xl bg-emerald-100 dark:bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.09 3.2 5.07 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35zM12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88 2.64 0 5.13 1.03 7 2.9a9.83 9.83 0 0 1 2.9 7c0 5.45-4.44 9.87-9.9 9.87zm8.42-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .17 5.33.17 11.88c0 2.09.55 4.13 1.59 5.93L.07 24l6.34-1.66a11.87 11.87 0 0 0 5.64 1.44h.01c6.55 0 11.88-5.33 11.88-11.88 0-3.17-1.24-6.15-3.47-8.41z"/></svg>
+        </span>
+        <div class="flex-1 min-w-0">
+          <p class="font-semibold text-sm">WhatsApp</p>
+          <p class="text-xs text-zinc-500 truncate">+229 01 48 22 00 01</p>
+        </div>
+        <i data-lucide="arrow-up-right" class="link-arrow w-4 h-4"></i>
+      </a>
+
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/search/results/all/?keywords=Mardoch%C3%A9e%20CAKPO" target="_blank" rel="noopener"
+         class="link-card animate-in flex items-center gap-4 p-4 rounded-2xl bg-white/80 dark:bg-zinc-900/70 backdrop-blur-md border border-zinc-200 dark:border-zinc-800 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/10"
+         style="animation-delay:.2s">
+        <span class="link-icon w-11 h-11 rounded-xl bg-blue-100 dark:bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+        </span>
+        <div class="flex-1 min-w-0">
+          <p class="font-semibold text-sm">LinkedIn</p>
+          <p class="text-xs text-zinc-500 truncate">Mardochée CAKPO</p>
+        </div>
+        <i data-lucide="arrow-up-right" class="link-arrow w-4 h-4"></i>
+      </a>
+
+      <!-- Malt -->
+      <a href="https://en.malt.fr/profile/mardocheecakpo" target="_blank" rel="noopener"
+         class="link-card animate-in flex items-center gap-4 p-4 rounded-2xl bg-white/80 dark:bg-zinc-900/70 backdrop-blur-md border border-zinc-200 dark:border-zinc-800 hover:border-red-400 dark:hover:border-red-500 hover:shadow-lg hover:shadow-red-500/10"
+         style="animation-delay:.25s">
+        <span class="link-icon w-11 h-11 rounded-xl bg-red-100 dark:bg-red-500/15 text-red-600 dark:text-red-400 flex items-center justify-center shrink-0">
+          <span class="font-display font-bold text-base">M</span>
+        </span>
+        <div class="flex-1 min-w-0">
+          <p class="font-semibold text-sm">Malt</p>
+          <p class="text-xs text-zinc-500 truncate">Mardochée Cakpo · Freelance</p>
+        </div>
+        <i data-lucide="arrow-up-right" class="link-arrow w-4 h-4"></i>
+      </a>
+
+      <!-- GitHub -->
+      <a href="https://github.com/mardochecakpodev-bot" target="_blank" rel="noopener"
+         class="link-card animate-in flex items-center gap-4 p-4 rounded-2xl bg-white/80 dark:bg-zinc-900/70 backdrop-blur-md border border-zinc-200 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-lg hover:shadow-zinc-500/10"
+         style="animation-delay:.3s">
+        <span class="link-icon w-11 h-11 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8 0 3.2.9.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.1.9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"/></svg>
+        </span>
+        <div class="flex-1 min-w-0">
+          <p class="font-semibold text-sm">GitHub</p>
+          <p class="text-xs text-zinc-500 truncate">mardochecakpodev-bot</p>
+        </div>
+        <i data-lucide="arrow-up-right" class="link-arrow w-4 h-4"></i>
+      </a>
+
+      <!-- Email -->
+      <a href="mailto:mardochecakpodev@gmail.com"
+         class="link-card animate-in flex items-center gap-4 p-4 rounded-2xl bg-white/80 dark:bg-zinc-900/70 backdrop-blur-md border border-zinc-200 dark:border-zinc-800 hover:border-amber-400 dark:hover:border-amber-500 hover:shadow-lg hover:shadow-amber-500/10"
+         style="animation-delay:.35s">
+        <span class="link-icon w-11 h-11 rounded-xl bg-amber-100 dark:bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+          <i data-lucide="mail" class="w-5 h-5"></i>
+        </span>
+        <div class="flex-1 min-w-0">
+          <p class="font-semibold text-sm">Email</p>
+          <p class="text-xs text-zinc-500 truncate">mardochecakpodev@gmail.com</p>
+        </div>
+        <i data-lucide="arrow-up-right" class="link-arrow w-4 h-4"></i>
+      </a>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-12 text-center animate-in" style="animation-delay:.4s">
+      <p class="text-xs text-zinc-500 dark:text-zinc-500">
+        © <span id="year"></span> Mardoche Cakpo · Tous droits réservés
+      </p>
+    </footer>
+
+  </div>
+</main>
+
+<script>
+/* Année footer */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* Thème */
+const themeToggle = document.getElementById('themeToggle');
+themeToggle.addEventListener('click', () => {
+  const isDark = document.documentElement.classList.toggle('dark');
+  try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch(e) {}
+  lucide.createIcons();
+});
+
+/* Copie du lien au clic long (utile sur mobile) */
+document.querySelectorAll('.link-card').forEach(card => {
+  let timer = null;
+  card.addEventListener('touchstart', () => {
+    timer = setTimeout(() => {
+      const url = card.href;
+      if (navigator.clipboard && url) {
+        navigator.clipboard.writeText(url).then(() => {
+          const original = card.querySelector('p.font-semibold').textContent;
+          card.querySelector('p.font-semibold').textContent = '✓ Lien copié';
+          setTimeout(() => card.querySelector('p.font-semibold').textContent = original, 1200);
+        });
+      }
+    }, 600);
+  }, { passive: true });
+  card.addEventListener('touchend', () => clearTimeout(timer));
+  card.addEventListener('touchmove', () => clearTimeout(timer));
+});
+
+/* Icons */
+lucide.createIcons();
+</script>
+
+</body>
+</html>
